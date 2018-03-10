@@ -603,7 +603,7 @@ if __name__ == "__main__":
     if decision == "y":
         quest.heatmap_sKmer()
     else:
-    quest.heatmap()    
+    	quest.heatmap()    
     #quest.bootstrapping_BCa()
     
                 
