@@ -62,7 +62,7 @@ class Kmer():
         k: 'int'
             A parameter defining the length [bp] of an extracted "word".
         all_w: 'list'
-            A list containing all the permutations possible given the 
+            A list containing all the possible permutations given the 
             alphabet and the words' lengths. In this case, 4**k.
         corr_matrix: 'numpy 3-D array'
             A 3-D array that contains the correlation values. It resembles
@@ -189,7 +189,7 @@ class Kmer():
         k = log_4(sequence length),
 
         which theoretically finds the best k in the same
-        fashion as in optimal_k (heck the paper cited in the 
+        fashion as in optimal_k (check the paper cited in the 
         latter for more informations). Then the user can choose
         the k to use.
 
@@ -227,11 +227,7 @@ class Kmer():
             unordered_dic_kmers = collections.Counter(kmers)
             for key in self.all_w:
                 self.ordered_kmers[index].append(unordered_dic_kmers[key])
-            #self.count_kmers[index].append(collections.Counter(kmers))
-            #if not self.boot_switch:
-                #self.sample_size[index].append(sum(list(self.count_kmers[index][0].values())))
-                # numero totale di parole in una sequenza.
-                #controlla che basta forse una lista. Come è ora è tipo: [[23] [41] etc]
+
         print("Words analysis completed.\n")
 
 
@@ -345,6 +341,7 @@ class Kmer():
                     up_tol_N = sum(self.ordered_kmers[x]) + tolerance
                     low_tol_M = sum(self.ordered_kmers[y]) - tolerance
                     up_tol_M = sum(self.ordered_kmers[y]) + tolerance
+		
                     #the while loop forces the size within the tolerance level
                     while (new_size_N <= low_tol_N  or new_size_N >= up_tol_N) and (
                             new_size_M <= low_tol_M  or new_size_M >= up_tol_M):
