@@ -27,7 +27,7 @@ class Kmer():
 
     """
 
-    def __init__(self, seqs=None, length_seqs=None, corrs=None, files=None):
+    def __init__(self, seqs=None, length_seqs=None, corr=None, files=None):
         """It initializes the main attributes of the class.
 
         Attributes
@@ -81,11 +81,11 @@ class Kmer():
             self.seqs = seqs
             self.length_seqs = length_seqs
         self.alphabet = "ATCG"
-        if corrs not in ["P", "S", "T", "ALL"]:
+        if corr not in ["P", "S", "T", "ALL"]:
             self.corr = input("Correlation functions: \n\n-Pearson (P) \
              \n-Spearman (S) \n-Kendall (T) \n-All (ALL) \n\nChoose one of them: ")
         else:
-            self.corr = corrs
+            self.corr = corr
         if files is None:    
             self.files = []
         self.k = 0
@@ -593,7 +593,7 @@ class Kmer():
 
 if __name__ == "__main__":
 
-    quest = Kmer(corrs="P")
+    quest = Kmer(corr="P")
     quest.read_seqs(rel_path="open_source/Kmer/test_seqs")
     decision = input("Do you want to perform sKmer? [y/n] ")
     if decision == "y":
