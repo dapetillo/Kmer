@@ -132,10 +132,6 @@ class Kmer():
         self.filenames = [x for x in self.filenames if x in names_taken] # to have correspondence between
                                                                          # name and its sequence
 
-
-
-
-
     def optimal_k(self, max_k=None):
         """ Given a range of k values, the variety of the extracted
         words in a sequence changes. The method returns the (optimal)
@@ -171,12 +167,7 @@ class Kmer():
                         richness[ind][k-1] += 1
             opt_k["{}".format(self.filenames[ind])] = np.argmax(richness[ind]) + 1
         
-        print(opt_k)
-
         return opt_k 
-
-
-
 
     def words_overlay(self, k=None):
         """The method extracts the words from each sequence given
@@ -199,7 +190,7 @@ class Kmer():
             for n in self.length_seqs:
                 logs += mt.log(n, 4)
             average_k = logs / len(self.length_seqs)
-            print("Average k: ", average_k)
+            print("Average k: %.2f" % average_k)
             self.k = int(input("Choose words' length: "))
 
         self.all_w = np.empty(4**self.k, dtype=object)
@@ -423,7 +414,7 @@ class Kmer():
                              theta_low[2], theta_up[2], corr_func[2]])
             data = data.T
             np.savetxt(datafile_id, data, fmt="%f", delimiter="    ", header="SpearCIlow,\
- SpearCIup, Spear, KenCIlow, KenCIup, Ken, PearCIL, PearCIup, Pear")
+                       SpearCIup, Spear, KenCIlow, KenCIup, Ken, PearCIL, PearCIup, Pear")
 
 
 
@@ -518,11 +509,8 @@ class Kmer():
                 namefile = files.replace(".fasta", "")
                 labels.append(namefile)
 
-
-        x = 0
         if self.corr == "ALL":
             stop = len(self.corr_matrix)
-            name_corr = ["Spearman", "Kendall", "Pearson"]
         else:
             stop = 1
 
@@ -570,11 +558,11 @@ class Kmer():
             plt.clf()
             fig = plt.figure()
             ax = fig.add_subplot(111)
-            points = sns.heatmap(self.corr_matrix[ind][0:self.limit, self.limit:],
-                                 square=True, vmin=-1, vmax=1, cmap="RdBu_r", linewidths=.1,
-                                 cbar_kws={"ticks":[-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]},
-                                 fmt=".2f", annot=False, xticklabels=10, yticklabels=10,
-                                 annot_kws={"size": 9})
+            sns.heatmap(self.corr_matrix[ind][0:self.limit, self.limit:],
+                        square=True, vmin=-1, vmax=1, cmap="RdBu_r", linewidths=.1,
+                        cbar_kws={"ticks":[-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]},
+                        fmt=".2f", annot=False, xticklabels=10, yticklabels=10,
+                        annot_kws={"size": 9})
             ax.plot([0, ax.get_ylim()[1]], [ax.get_ylim()[1], 0], ls="--", color=".3",
                     linewidth=1.)
 
@@ -590,7 +578,7 @@ class Kmer():
 
 if __name__ == "__main__":
 
-    quest = Kmer(corr="P", seq_dir="test_seqs")
+    quest = Kmer(corr="P", seq_dir="test_seqs/test_skmer")
     #quest.read_seqs(rel_path="open_source/Kmer/test_seqs")
     quest.read_seqs()
     decision = input("Do you want to perform sKmer? [y/n] ")
