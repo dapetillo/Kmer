@@ -81,7 +81,7 @@ class Kmer():
             self.seqs = seqs
             self.length_seqs = length_seqs
         self.alphabet = "ATCG"
-        if corrs is None:
+        if corrs not in ["P", "S", "T", "ALL"]:
             self.corr = input("Correlation functions: \n\n-Pearson (P) \
              \n-Spearman (S) \n-Kendall (T) \n-All (ALL) \n\nChoose one of them: ")
         else:
@@ -113,7 +113,7 @@ class Kmer():
         path = os.path.join(os.path.expanduser("~"), rel_path)
         self.files = sorted(os.listdir(path))
         names_taken = []
-        for num, fil in enumerate(self.files):
+        for fil in self.files:
             if fil.endswith(".gb"):
                 rec = SeqIO.read(path+fil, "genbank")
                 for rec in SeqIO.parse(path+fil, "genbank"):
@@ -593,8 +593,8 @@ class Kmer():
 
 if __name__ == "__main__":
 
-    quest = Kmer()
-    quest.read_seqs(rel_path="/relative/path/to/files")
+    quest = Kmer(corrs="P")
+    quest.read_seqs(rel_path="open_source/Kmer/test_seqs")
     decision = input("Do you want to perform sKmer? [y/n] ")
     if decision == "y":
         quest.sKmer()
