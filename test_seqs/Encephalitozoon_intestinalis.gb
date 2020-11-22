@@ -1,0 +1,160 @@
+LOCUS       NC_014418               3426 bp    DNA     linear   CON 10-OCT-2017
+DEFINITION  Encephalitozoon intestinalis ATCC 50506 chromosome IV, complete
+            sequence.
+ACCESSION   NC_014418 REGION: 29591..33016
+VERSION     NC_014418.1
+DBLINK      BioProject: PRJNA51607
+            BioSample: SAMN03081424
+            Assembly: GCF_000146465.1
+KEYWORDS    RefSeq.
+SOURCE      Encephalitozoon intestinalis ATCC 50506
+  ORGANISM  Encephalitozoon intestinalis ATCC 50506
+            Eukaryota; Fungi; Fungi incertae sedis; Microsporidia;
+            Unikaryonidae; Encephalitozoon.
+REFERENCE   1  (bases 1 to 3426)
+  AUTHORS   Pombert,J.F., Selman,M., Burki,F., Bardell,F.T., Farinelli,L.,
+            Solter,L.F., Whitman,D.W., Weiss,L.M., Corradi,N. and Keeling,P.J.
+  TITLE     Gain and loss of multiple functionally related, horizontally
+            transferred genes in the reduced genomes of two microsporidian
+            parasites
+  JOURNAL   Proc. Natl. Acad. Sci. U.S.A. 109 (31), 12638-12643 (2012)
+   PUBMED   22802648
+REFERENCE   2  (bases 1 to 3426)
+  AUTHORS   Corradi,N., Pombert,J.F., Farinelli,L., Didier,E.S. and
+            Keeling,P.J.
+  TITLE     The complete sequence of the smallest known nuclear genome from the
+            microsporidian Encephalitozoon intestinalis
+  JOURNAL   Nat Commun 1, 77 (2010)
+   PUBMED   20865802
+  REMARK    Publication Status: Online-Only
+REFERENCE   3  (bases 1 to 3426)
+  CONSRTM   NCBI Genome Project
+  TITLE     Direct Submission
+  JOURNAL   Submitted (10-OCT-2017) National Center for Biotechnology
+            Information, NIH, Bethesda, MD 20894, USA
+REFERENCE   4  (bases 1 to 3426)
+  AUTHORS   Corradi,N., Pombert,J.-F. and Keeling,P.J.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (06-MAR-2014) Botany, University of British Columbia,
+            3529-6270 University Boulevard, Vancouver, British Columbia V6T
+            1Z4, Canada
+  REMARK    Protein update by submitter
+REFERENCE   5  (bases 1 to 3426)
+  AUTHORS   Corradi,N., Pombert,J.-F., Farinelli,L., Didier,E. and Keeling,P.J.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (22-JAN-2010) Botany, University of British Columbia,
+            3529-6270 University Boulevard, Vancouver, British Columbia V6T
+            1Z4, Canada
+COMMENT     PROVISIONAL REFSEQ: This record has not yet been subject to final
+            NCBI review. The reference sequence is identical to CP001945.
+            Linear chromosome is missing portions of the telomeric regions.
+            
+            ##Genome-Annotation-Data-START##
+            Annotation Provider :: INSDC submitter
+            Annotation Status   :: Full annotation
+            Annotation Pipeline :: Eukaryotic Annotation Propagation Pipeline
+            ##Genome-Annotation-Data-END##
+            COMPLETENESS: full length.
+FEATURES             Location/Qualifiers
+     source          1..3426
+                     /organism="Encephalitozoon intestinalis ATCC 50506"
+                     /mol_type="genomic DNA"
+                     /strain="ATCC 50506"
+                     /db_xref="taxon:876142"
+                     /chromosome="IV"
+     gene            <1..>3426
+                     /locus_tag="Eint_040290"
+                     /db_xref="GeneID:9699082"
+     mRNA            <1..>3426
+                     /locus_tag="Eint_040290"
+                     /product="DNA topoisomerase II"
+                     /transcript_id="XM_003072634.1"
+                     /db_xref="GeneID:9699082"
+     CDS             1..3426
+                     /locus_tag="Eint_040290"
+                     /note="similar to ECU04_0350"
+                     /codon_start=1
+                     /product="DNA topoisomerase II"
+                     /protein_id="XP_003072680.1"
+                     /db_xref="GeneID:9699082"
+                     /translation="MKTIEETYQKKTPVEHILLRPDSYIGSVEKEMQQMYVWDEDNSK
+                     MVFKNIEYVPGLYKIFDEIIVNAADNKIRDPKMNVIKVSIDPEKNEISVYNNGRGIPV
+                     RIHKEENVYVPELIFGNLLTSSNYNDDEKKVTGGRNGYGAKLCNIFSKEFIVETADCE
+                     VKKYYKQRYRDNMGIKEEPEISRYTKEDFTRITFKPDLRRFKMNKLDDDTVSLLKKRV
+                     YDLGGIVKDVKIFLNEKKIPVKGFKEYVKLYIPSGVNIVHQVINDRWELALTTSEEQF
+                     QQVSFVNAICTSKGGSHVNHVVERIVDPLLEAIQKKEKGLSVRPFQIKSCMFIFVNCL
+                     IENPAFDSQTKENLTLRVSAFGSKCEPISDFVKNVIKNTSLVQKVTSFAKARQSQQLK
+                     KTDGAKTSRLSGIPKLEDANFAGTSKSKDCTLILTEGDSAKTLAVSGLSVVGRDIYGV
+                     FPLRGKLLNVREASHKQIMDNAEISNIKKILGLQHNKIYEDVSSLRYGHIMIMTDQDH
+                     DGSHIKGLIINFLDHFYPSLLKIPGFLQEFITPIVRASKKGEVKDFFTLPEYEEFKKN
+                     SDGWNIKYYKGLGTSTSADAKQYFSNLPIHVKYFTPLIEEDKELIDLAFNKKKADARK
+                     TWLLNFEPGTFLDQSQPQISISDFVNKELILFSMADNIRSIPSLVDGLKPGQRKVMFS
+                     CFKRNLRSEIKVAQLVGYVSEQSAYHHGEQSLCSTIVNLAQDFVGSNNINLLLPIGQF
+                     GSRLQGGKDAASPRYIFTSLSPLTRLIFNENDDAILSYLNDDNLSIEPEFYVPIIPMV
+                     LVNGAEGIGTGWSTSIPNFNPVDVVENIRRLIRGEDPVEMIPYYRNFRGTIEKVGEGK
+                     YQVSGIYEGDMDLEISELPVGTWTLNYKEFLESLVQAGVVKDFKEYHTEKTVSFSVKL
+                     SKSISNLKLSTTITINNMVCFDENLGIKKYSTPQEILKEFYDVRLRYYSIRKENMLKV
+                     MKEELVKLENKVRFIKEVSTGELVISRRRKGEVIFDLESRRYARVDDYEYLLSMSILS
+                     LTVERIEKLNNEHAKKLEEYNKLESKTPKELWLDDLEVFEREYLKIVERETKEYDDEL
+                     NGCVRKKGKKPKSRKETTYRPKKAKKPKSPQVTENSSDDNSLEEKPWKKYSLI"
+ORIGIN      
+        1 atgaagacta ttgaagagac ataccaaaaa aagacacctg tggagcatat tcttcttaga
+       61 cctgactcct atataggatc tgtagagaaa gaaatgcaac agatgtatgt atgggatgag
+      121 gataatagca aaatggtgtt caaaaatata gaatatgtgc ctggattgta caagatattt
+      181 gacgagataa ttgtaaatgc ggcagacaat aagatacggg atcctaagat gaatgtcatc
+      241 aaagtttcca tcgaccccga gaaaaatgag atatctgtgt acaacaatgg gagggggatt
+      301 cctgtcagaa tccataaaga ggaaaacgtg tatgttcccg aacttatttt tggaaatcta
+      361 ttgacatcgt cgaactacaa tgacgacgag aagaaagtca caggaggaag aaatggatat
+      421 ggagccaaat tatgtaatat attcagcaag gaatttatag tggagacagc ggattgcgag
+      481 gtcaagaaat actacaaaca gagatataga gacaatatgg gaatcaaaga agagcctgaa
+      541 attagtagat ataccaagga ggactttaca agaataacat ttaaacccga cctccggagg
+      601 ttcaaaatga acaagctgga cgatgacacg gtatcgttgt tgaagaagag ggtttatgac
+      661 cttggaggaa ttgtcaagga tgtaaagata tttctgaacg agaagaaaat tcctgtcaag
+      721 ggcttcaagg aatatgtaaa gttgtacatt ccatccgggg ttaatattgt gcatcaggtt
+      781 attaatgaca gatgggaact ggctcttact acgagtgaag agcaattcca gcaagtatca
+      841 tttgtcaatg caatctgtac ctcgaaagga ggaagccatg tcaaccatgt tgttgagcgt
+      901 attgtggatc cgttgttgga agcaatacag aaaaaagaaa aaggactttc tgtaaggcca
+      961 ttccagatca agtcgtgcat gtttatattt gtaaattgtc tcattgagaa cccagcattt
+     1021 gattcacaga cgaaggaaaa ccttaccttg agagtatcag cttttggctc gaaatgtgaa
+     1081 ccgatatcgg actttgtgaa aaatgttata aagaacacat cactggttca aaaggtgact
+     1141 tcgtttgcaa aggctaggca aagccagcag ctaaagaaga cggatggagc taaaacaagt
+     1201 aggctttctg gaattcccaa gcttgaagat gccaactttg caggaacaag caagtcgaag
+     1261 gattgcactc tgatattaac cgagggggat tctgccaaga cattagctgt ttcgggactc
+     1321 agtgtggttg gaagagacat ctatggggtc ttccctcttc gaggaaagct gctgaatgtt
+     1381 cgagaggcat ctcacaagca gataatggac aatgcagaga tttcaaacat aaagaagatc
+     1441 ctgggcttgc agcacaacaa gatctatgaa gatgtgtcaa gccttaggta tgggcatatt
+     1501 atgataatga ccgatcaaga tcacgacggt agtcacataa aaggccttat aatcaatttt
+     1561 ctggatcact tctatccttc tttgctgaag ataccgggtt tccttcagga gtttatcacg
+     1621 ccaattgtaa gagcctcaaa gaagggcgag gtcaaagact tcttcacatt accggagtac
+     1681 gaggaattca agaagaattc cgatggatgg aatatcaagt actacaaggg attgggaaca
+     1741 tctacaagtg cagatgctaa gcaatatttt agcaatcttc cgatccatgt aaagtacttt
+     1801 accccattga ttgaagagga caaggagctt attgaccttg cgttcaacaa aaagaaggca
+     1861 gatgcaagaa agacatggct tctaaacttt gagcccggaa catttttaga tcagtcgcag
+     1921 ccacagatat cgatctcaga ctttgttaat aaagagttga tcttgttctc catggcagac
+     1981 aacattcgct ctattccgag cttggtggac ggactcaagc cgggacaaag gaaggtgatg
+     2041 ttcagctgct tcaaaaggaa ccttaggtct gagataaagg tggcacaact ggtagggtat
+     2101 gtatccgagc aatctgcgta tcatcatgga gaacaatctc tttgttccac aattgtgaac
+     2161 ttggcacagg actttgttgg gtcgaataac ataaatcttc tgctcccgat tgggcaattt
+     2221 gggagtaggc ttcaaggagg aaaggatgca gcaagtcctc gttatatctt cacatctcta
+     2281 tctcctttaa caaggcttat attcaatgag aatgatgacg caatcctcag ctatctcaac
+     2341 gatgacaatc tctcaataga gccggagttc tatgttccca ttattcctat ggtattagtt
+     2401 aatggagccg aggggatagg gactggatgg agcacctcta ttccgaactt caatccagtg
+     2461 gatgtggtag agaatatccg gaggttgatc agaggcgaag atcctgtgga gatgattccc
+     2521 tattacagga attttagagg gacgattgaa aaggtgggag aaggaaaata ccaggtttca
+     2581 ggaatatatg agggagacat ggaccttgaa atctccgaac ttcctgttgg gacatggact
+     2641 ctaaattaca aggagttttt ggagtctctt gtgcaggctg gagttgtaaa ggacttcaag
+     2701 gaataccata cagaaaagac agtaagcttt tcggtcaagc tttcaaagag catcagcaac
+     2761 ctaaagctaa gcacaaccat caccatcaac aacatggttt gctttgatga aaaccttgga
+     2821 attaagaagt attcgacgcc tcaggagatt ctgaaggaat tctatgatgt tagacttaga
+     2881 tattattcaa taaggaagga aaacatgttg aaggtaatga aagaagagtt ggtgaagttg
+     2941 gaaaataagg ttaggtttat aaaagaggtt tcaacgggtg agcttgtaat tagcagaagg
+     3001 agaaaagggg aagttatatt tgatcttgag tcgagaagat atgcaagagt tgacgattat
+     3061 gaatatcttc tgagcatgtc aatattaagt cttactgtag agaggattga gaaattaaac
+     3121 aacgaacatg caaagaagct tgaggaatat aacaaactgg aaagtaaaac tcccaaagaa
+     3181 ctgtggttgg atgacttaga ggtctttgaa agagagtatc tgaagattgt tgagagagaa
+     3241 actaaagaat atgatgacga gctaaatgga tgtgttcgaa agaaagggaa aaagccaaag
+     3301 tctcgaaaag aaaccactta caggccaaag aaggcaaaaa agcccaaatc cccccaagta
+     3361 acggagaact ccagtgacga caattcctta gaggaaaaac cttggaagaa gtacagcctc
+     3421 atataa
+//
+
