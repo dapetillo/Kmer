@@ -9,14 +9,14 @@ import numpy as np
 import scipy.stats
 import seaborn as sns
 from Bio import SeqIO
-
+import sys
 
 
 class Kmer():
 
     """This class implements an alignment-free algorithm to correlate genetic sequences.
 
-	The sequence A is cut into "words" of k nucleotides and for all the k reading frames;
+    The sequence A is cut into "words" of k nucleotides and for all the k reading frames;
     a vector then is filled with the occurrences of each possible words (4**k). The same 
     is made with the sequence B. Finally the two resulting vectors are correlated. If 
     a set of N sequences is given, the class generates N vector that are correlated 
@@ -27,7 +27,7 @@ class Kmer():
 
     """
 
-    def __init__(self, seqs=None, length_seqs=None, corrs=None, files=None):
+    def __init__(self, seqs=None, length_seqs=None, corr=None, seq_dir="seqs"):
         """It initializes the main attributes of the class.
 
         Attributes
@@ -80,20 +80,24 @@ class Kmer():
         else:
             self.seqs = seqs
             self.length_seqs = length_seqs
-        self.alphabet = "ATCG"
-        if corrs is None:
+        if corr not in ["P", "S", "T", "ALL"]:
             self.corr = input("Correlation functions: \n\n-Pearson (P) \
              \n-Spearman (S) \n-Kendall (T) \n-All (ALL) \n\nChoose one of them: ")
         else:
-            self.corr = corrs
-        if files is None:    
-            self.files = []
+            self.corr = corr
+        if seq_dir is None:    
+            self.filenames = []
+        else:
+            self.filenames = os.listdir(seq_dir)
+        
+        self.seq_dir = seq_dir
+        self.alphabet = "ATCG"
         self.k = 0
         self.all_w = None
         self.corr_matrix = None
         self.ordered_kmers = None
 
-    def read_seqs(self, rel_path=None):
+    def read_seqs(self):
         """It processes the Genbank (*.gb) and FASTA (*.fasta) files
         to extract the sequences. 
 
@@ -101,22 +105,14 @@ class Kmer():
         extract from *.gb files, the code must be changed accordingly.
 
         """
-        if rel_path is None:
-            rel_path = input("Insert relative path: ")
-        if rel_path[0] == "/" or rel_path[0] == "\\":
-            rel_path = rel_path[1:]
-        if rel_path[-1] != "/":
-            rel_path = rel_path+"/" 
-        elif rel_path[-1] != "\\":
-            rel_path = rel_path+"\\"
-            
-        path = os.path.join(os.path.expanduser("~"), rel_path)
-        self.files = sorted(os.listdir(path))
+
+        path = os.path.abspath(self.seq_dir)
         names_taken = []
-        for num, fil in enumerate(self.files):
+        for fil in self.filenames:
+            full_path = os.path.join(path, fil)
             if fil.endswith(".gb"):
-                rec = SeqIO.read(path+fil, "genbank")
-                for rec in SeqIO.parse(path+fil, "genbank"):
+                rec = SeqIO.read(full_path, "genbank")
+                for rec in SeqIO.parse(full_path, "genbank"):
                     for ff in rec.features:
                         if ff.type == "source":  #this line select the genbank feature
                             seq = ff.location.extract(rec).seq
@@ -125,7 +121,7 @@ class Kmer():
                             names_taken.append(fil)
                             break   #in a *.gb file features can repeat (more studies on same region)
             elif fil.endswith(".fasta"):
-                seq = ''.join(SeqIO.read(open(path+fil), "fasta").seq)
+                seq = ''.join(SeqIO.read(open(full_path), "fasta").seq)
                 self.length_seqs.append(len(seq))
                 if seq[0].islower():   #some fasta file can have lower-case character (by default
                                        #they must be upper-case)
@@ -133,11 +129,8 @@ class Kmer():
                 self.seqs.append(seq)
                 names_taken.append(fil)
 
-        self.files = [x for x in self.files if x in names_taken] # to have correspondence between
-                                                                 #name and its sequence
-
-
-
+        self.filenames = [x for x in self.filenames if x in names_taken] # to have correspondence between
+                                                                         # name and its sequence
 
     def optimal_k(self, max_k=None):
         """ Given a range of k values, the variety of the extracted
@@ -172,14 +165,9 @@ class Kmer():
                 for values in counting.values():
                     if values >= 2:
                         richness[ind][k-1] += 1
-            opt_k["{}".format(self.files[ind])] = np.argmax(richness[ind]) + 1
+            opt_k["{}".format(self.filenames[ind])] = np.argmax(richness[ind]) + 1
         
-        print(opt_k)
-
         return opt_k 
-
-
-
 
     def words_overlay(self, k=None):
         """The method extracts the words from each sequence given
@@ -202,7 +190,7 @@ class Kmer():
             for n in self.length_seqs:
                 logs += mt.log(n, 4)
             average_k = logs / len(self.length_seqs)
-            print("Average k: ", average_k)
+            print("Average k: %.2f" % average_k)
             self.k = int(input("Choose words' length: "))
 
         self.all_w = np.empty(4**self.k, dtype=object)
@@ -341,7 +329,7 @@ class Kmer():
                     up_tol_N = sum(self.ordered_kmers[x]) + tolerance
                     low_tol_M = sum(self.ordered_kmers[y]) - tolerance
                     up_tol_M = sum(self.ordered_kmers[y]) + tolerance
-		
+        
                     #the while loop forces the size within the tolerance level
                     while (new_size_N <= low_tol_N  or new_size_N >= up_tol_N) and (
                             new_size_M <= low_tol_M  or new_size_M >= up_tol_M):
@@ -426,7 +414,7 @@ class Kmer():
                              theta_low[2], theta_up[2], corr_func[2]])
             data = data.T
             np.savetxt(datafile_id, data, fmt="%f", delimiter="    ", header="SpearCIlow,\
- SpearCIup, Spear, KenCIlow, KenCIup, Ken, PearCIL, PearCIup, Pear")
+                       SpearCIup, Spear, KenCIlow, KenCIup, Ken, PearCIL, PearCIup, Pear")
 
 
 
@@ -510,7 +498,7 @@ class Kmer():
         colors = ["red", "purple", "blue", "gray", "green", "orange",]
                  #Animalia, Archaea, Bacteria, Fungi, Plantae, Protista
 
-        for files in self.files:
+        for files in self.filenames:
             if king_switch == "y":
                 palettes.append(colors[int(files[0])])
                 files = files[2:]
@@ -521,11 +509,8 @@ class Kmer():
                 namefile = files.replace(".fasta", "")
                 labels.append(namefile)
 
-
-        x = 0
         if self.corr == "ALL":
             stop = len(self.corr_matrix)
-            name_corr = ["Spearman", "Kendall", "Pearson"]
         else:
             stop = 1
 
@@ -546,7 +531,7 @@ class Kmer():
             orange_patch = mpatches.Patch(color="orange", label="Protista")
             #plt.legend(handles = [red_patch, purple_patch, blue_patch], loc = 3, bbox_to_anchor = (-0.4, -0.3))
             plt.tight_layout()
-            #plt.yticks(range(len(self.files)), labels)
+            #plt.yticks(range(len(self.filenames)), labels)
             if king_switch == "y":
                 for ind, label in enumerate(points.get_yticklabels()):
                     label.set_color(palettes[::-1][ind])
@@ -573,11 +558,11 @@ class Kmer():
             plt.clf()
             fig = plt.figure()
             ax = fig.add_subplot(111)
-            points = sns.heatmap(self.corr_matrix[ind][0:self.limit, self.limit:],
-                                 square=True, vmin=-1, vmax=1, cmap="RdBu_r", linewidths=.1,
-                                 cbar_kws={"ticks":[-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]},
-                                 fmt=".2f", annot=False, xticklabels=10, yticklabels=10,
-                                 annot_kws={"size": 9})
+            sns.heatmap(self.corr_matrix[ind][0:self.limit, self.limit:],
+                        square=True, vmin=-1, vmax=1, cmap="RdBu_r", linewidths=.1,
+                        cbar_kws={"ticks":[-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]},
+                        fmt=".2f", annot=False, xticklabels=10, yticklabels=10,
+                        annot_kws={"size": 9})
             ax.plot([0, ax.get_ylim()[1]], [ax.get_ylim()[1], 0], ls="--", color=".3",
                     linewidth=1.)
 
@@ -593,8 +578,9 @@ class Kmer():
 
 if __name__ == "__main__":
 
-    quest = Kmer()
-    quest.read_seqs(rel_path="/relative/path/to/files")
+    quest = Kmer(corr="P", seq_dir="test_seqs/test_skmer")
+    #quest.read_seqs(rel_path="open_source/Kmer/test_seqs")
+    quest.read_seqs()
     decision = input("Do you want to perform sKmer? [y/n] ")
     if decision == "y":
         quest.sKmer()
@@ -603,7 +589,7 @@ if __name__ == "__main__":
     if decision == "y":
         quest.heatmap_sKmer()
     else:
-    	quest.heatmap()    
+        quest.heatmap()
     #quest.bootstrapping_BCa()
     
                 

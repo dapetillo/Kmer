@@ -1,0 +1,400 @@
+LOCUS       NC_003076               6345 bp    DNA     linear   CON 14-FEB-2019
+DEFINITION  Arabidopsis thaliana chromosome 5 sequence.
+ACCESSION   NC_003076 REGION: complement(1121800..1128144)
+VERSION     NC_003076.8
+DBLINK      BioProject: PRJNA116
+            BioSample: SAMN03081427
+            Assembly: GCF_000001735.4
+KEYWORDS    RefSeq.
+SOURCE      Arabidopsis thaliana (thale cress)
+  ORGANISM  Arabidopsis thaliana
+            Eukaryota; Viridiplantae; Streptophyta; Embryophyta; Tracheophyta;
+            Spermatophyta; Magnoliopsida; eudicotyledons; Gunneridae;
+            Pentapetalae; rosids; malvids; Brassicales; Brassicaceae;
+            Camelineae; Arabidopsis.
+REFERENCE   1  (bases 1 to 6345)
+  AUTHORS   Tabata,S., Kaneko,T., Nakamura,Y., Kotani,H., Kato,T., Asamizu,E.,
+            Miyajima,N., Sasamoto,S., Kimura,T., Hosouchi,T., Kawashima,K.,
+            Kohara,M., Matsumoto,M., Matsuno,A., Muraki,A., Nakayama,S.,
+            Nakazaki,N., Naruo,K., Okumura,S., Shinpo,S., Takeuchi,C., Wada,T.,
+            Watanabe,A., Yamada,M., Yasuda,M., Sato,S., de la Bastide,M.,
+            Huang,E., Spiegel,L., Gnoj,L., O'Shaughnessy,A., Preston,R.,
+            Habermann,K., Murray,J., Johnson,D., Rohlfing,T., Nelson,J.,
+            Stoneking,T., Pepin,K., Spieth,J., Sekhon,M., Armstrong,J.,
+            Becker,M., Belter,E., Cordum,H., Cordes,M., Courtney,L.,
+            Courtney,W., Dante,M., Du,H., Edwards,J., Fryman,J., Haakensen,B.,
+            Lamar,E., Latreille,P., Leonard,S., Meyer,R., Mulvaney,E.,
+            Ozersky,P., Riley,A., Strowmatt,C., Wagner-McPherson,C., Wollam,A.,
+            Yoakum,M., Bell,M., Dedhia,N., Parnell,L., Shah,R., Rodriguez,M.,
+            See,L.H., Vil,D., Baker,J., Kirchoff,K., Toth,K., King,L.,
+            Bahret,A., Miller,B., Marra,M., Martienssen,R., McCombie,W.R.,
+            Wilson,R.K., Murphy,G., Bancroft,I., Volckaert,G., Wambutt,R.,
+            Dusterhoft,A., Stiekema,W., Pohl,T., Entian,K.D., Terryn,N.,
+            Hartley,N., Bent,E., Johnson,S., Langham,S.A., McCullagh,B.,
+            Robben,J., Grymonprez,B., Zimmermann,W., Ramsperger,U., Wedler,H.,
+            Balke,K., Wedler,E., Peters,S., van Staveren,M., Dirkse,W.,
+            Mooijman,P., Lankhorst,R.K., Weitzenegger,T., Bothe,G., Rose,M.,
+            Hauf,J., Berneiser,S., Hempel,S., Feldpausch,M., Lamberth,S.,
+            Villarroel,R., Gielen,J., Ardiles,W., Bents,O., Lemcke,K.,
+            Kolesov,G., Mayer,K., Rudd,S., Schoof,H., Schueller,C.,
+            Zaccaria,P., Mewes,H.W., Bevan,M. and Fransz,P.
+  CONSRTM   Kazusa DNA Research Institute; Cold Spring Harbor and Washington
+            University in St Louis Sequencing Consortium; European Union
+            Arabidopsis Genome Sequencing Consortium
+  TITLE     Sequence and analysis of chromosome 5 of the plant Arabidopsis
+            thaliana
+  JOURNAL   Nature 408 (6814), 823-826 (2000)
+   PUBMED   11130714
+REFERENCE   2  (bases 1 to 6345)
+  CONSRTM   NCBI Genome Project
+  TITLE     Direct Submission
+  JOURNAL   Submitted (14-FEB-2019) National Center for Biotechnology
+            Information, NIH, Bethesda, MD 20894, USA
+REFERENCE   3  (bases 1 to 6345)
+  AUTHORS   Krishnakumar,V., Cheng,C.-Y., Chan,A.P., Schobel,S., Kim,M.,
+            Ferlanti,E.S., Belyaeva,I., Rosen,B.D., Micklem,G., Miller,J.R.,
+            Vaughn,M. and Town,C.D.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (17-MAY-2016) Plant Genomics, J. Craig Venter Institute,
+            9704 Medical Center Dr, Rockville, MD 20850, USA
+  REMARK    Protein update by submitter
+REFERENCE   4  (bases 1 to 6345)
+  AUTHORS   Swarbreck,D., Lamesch,P., Wilks,C. and Huala,E.
+  CONSRTM   TAIR
+  TITLE     Direct Submission
+  JOURNAL   Submitted (18-FEB-2011) Department of Plant Biology, Carnegie
+            Institution, 260 Panama Street, Stanford, CA, USA
+COMMENT     REVIEWED REFSEQ: This record has been curated by TAIR and Araport.
+            The reference sequence is identical to CP002688.
+            On Jun 19, 2009 this sequence version replaced NC_003076.7.
+            
+            ##Genome-Annotation-Data-START##
+            Annotation Provider :: TAIR and Araport
+            Annotation Status   :: Full annotation
+            Annotation Pipeline :: Eukaryotic Annotation Propagation Pipeline
+            ##Genome-Annotation-Data-END##
+FEATURES             Location/Qualifiers
+     source          1..6345
+                     /organism="Arabidopsis thaliana"
+                     /mol_type="genomic DNA"
+                     /db_xref="taxon:3702"
+                     /chromosome="5"
+                     /ecotype="Columbia"
+     gene            complement(6332..>6345)
+                     /locus_tag="AT5G04120"
+                     /gene_synonym="F21E1.40; F21E1_40"
+                     /note="Encodes a cofactor-dependent phosphoglycerate
+                     mutase (dPGM) - like protein with phosphoserine
+                     phosphatase activity that may be responsible for serine
+                     anabolism."
+                     /db_xref="Araport:AT5G04120"
+                     /db_xref="GeneID:830290"
+                     /db_xref="TAIR:AT5G04120"
+     mRNA            complement(6332..>6345)
+                     /locus_tag="AT5G04120"
+                     /gene_synonym="F21E1.40; F21E1_40"
+                     /product="Phosphoglycerate mutase family protein"
+                     /inference="Similar to RNA sequence,
+                     EST:INSD:AU238416.1,INSD:BP799683.1,INSD:AU229602.1,
+                     INSD:AA597634.1,INSD:EL239971.1"
+                     /inference="similar to RNA sequence, mRNA:INSD:AK117579.1"
+                     /transcript_id="NM_120494.4"
+                     /db_xref="GeneID:830290"
+                     /db_xref="TAIR:AT5G04120"
+                     /db_xref="Araport:AT5G04120"
+     gene            1..6345
+                     /gene="GYRB2"
+                     /locus_tag="AT5G04130"
+                     /gene_synonym="DNA GYRASE B2; F21E1.50; F21E1_50"
+                     /db_xref="Araport:AT5G04130"
+                     /db_xref="GeneID:830291"
+                     /db_xref="TAIR:AT5G04130"
+     mRNA            join(1..265,657..795,886..966,1052..1165,1335..1391,
+                     1539..1640,1915..2065,2156..2232,2393..2503,2853..2923,
+                     3189..3330,3696..3794,3926..4054,4282..4396,4606..4673,
+                     4938..5051,5148..5264,5353..5406,5491..5596,5752..5882,
+                     5993..6345)
+                     /gene="GYRB2"
+                     /locus_tag="AT5G04130"
+                     /gene_synonym="DNA GYRASE B2; F21E1.50; F21E1_50"
+                     /product="DNA GYRASE B2"
+                     /inference="Similar to RNA sequence,
+                     EST:INSD:ES151181.1,INSD:ES076298.1,INSD:EL151639.1,
+                     INSD:ES056107.1,INSD:AV816754.1,INSD:BP780407.1,
+                     INSD:EL151625.1,INSD:EL248279.1,INSD:ES029890.1,
+                     INSD:ES182971.1,INSD:AV821355.1,INSD:EL977176.1,
+                     INSD:AV544746.1,INSD:EH925954.1,INSD:EH916896.1,
+                     INSD:AV802284.1,INSD:AV553240.1,INSD:ES089611.1,
+                     INSD:AV781777.1,INSD:EL025469.1,INSD:ES093180.1,
+                     INSD:EL107481.1,INSD:EL013045.1"
+                     /inference="similar to RNA sequence,
+                     mRNA:INSD:AY039521.1,INSD:AY142041.1"
+                     /transcript_id="NM_120495.3"
+                     /db_xref="GeneID:830291"
+                     /db_xref="TAIR:AT5G04130"
+                     /db_xref="Araport:AT5G04130"
+     mRNA            join(54..265,657..795,886..966,1052..1165,1335..1391,
+                     1539..1640,1915..2065,2156..2232,2393..2503,2853..2923,
+                     3189..3330,3696..3794,3926..4054,4282..4673,4938..5051,
+                     5148..5264,5353..5406,5491..5596,5752..5882,5993..6321)
+                     /gene="GYRB2"
+                     /locus_tag="AT5G04130"
+                     /gene_synonym="DNA GYRASE B2; F21E1.50; F21E1_50"
+                     /product="DNA GYRASE B2"
+                     /inference="Similar to RNA sequence,
+                     EST:INSD:ES056107.1,INSD:ES089611.1,INSD:AV821355.1,
+                     INSD:N97127.1,INSD:ES093180.1,INSD:EL013045.1,
+                     INSD:EH834770.1,INSD:ES076298.1,INSD:EL151625.1,
+                     INSD:ES029890.1"
+                     /transcript_id="NM_001342753.1"
+                     /db_xref="GeneID:830291"
+                     /db_xref="TAIR:AT5G04130"
+                     /db_xref="Araport:AT5G04130"
+     CDS             join(114..265,657..795,886..966,1052..1165,1335..1391,
+                     1539..1640,1915..2065,2156..2232,2393..2503,2853..2923,
+                     3189..3330,3696..3794,3926..4054,4282..4396,4606..4673,
+                     4938..5051,5148..5264,5353..5406,5491..5596,5752..5882,
+                     5993..6061)
+                     /gene="GYRB2"
+                     /locus_tag="AT5G04130"
+                     /gene_synonym="DNA GYRASE B2; F21E1.50; F21E1_50"
+                     /inference="Similar to RNA sequence,
+                     EST:INSD:ES151181.1,INSD:ES076298.1,INSD:EL151639.1,
+                     INSD:ES056107.1,INSD:AV816754.1,INSD:BP780407.1,
+                     INSD:EL151625.1,INSD:EL248279.1,INSD:ES029890.1,
+                     INSD:ES182971.1,INSD:AV821355.1,INSD:EL977176.1,
+                     INSD:AV544746.1,INSD:EH925954.1,INSD:EH916896.1,
+                     INSD:AV802284.1,INSD:AV553240.1,INSD:ES089611.1,
+                     INSD:AV781777.1,INSD:EL025469.1,INSD:ES093180.1,
+                     INSD:EL107481.1,INSD:EL013045.1"
+                     /inference="similar to RNA sequence,
+                     mRNA:INSD:AY039521.1,INSD:AY142041.1"
+                     /note="DNA GYRASE B2 (GYRB2); FUNCTIONS IN: DNA
+                     topoisomerase activity, DNA topoisomerase
+                     (ATP-hydrolyzing) activity, DNA binding, ATP binding;
+                     INVOLVED IN: DNA topological change, DNA metabolic
+                     process; LOCATED IN: mitochondrion; CONTAINS InterPro
+                     DOMAIN/s: DNA topoisomerase, type IIA, conserved site
+                     (InterPro:IPR018522), DNA topoisomerase, type IIA, subunit
+                     B (InterPro:IPR000565), DNA topoisomerase, type IIA,
+                     subunit B, domain 2 (InterPro:IPR013506), ATPase-like,
+                     ATP-binding domain (InterPro:IPR003594), DNA
+                     topoisomerase, type IIA, subunit B, C-terminal
+                     (InterPro:IPR002288), DNA topoisomerase, type IIA, subunit
+                     B/N-terminal, alpha-beta (InterPro:IPR013759), DNA
+                     topoisomerase, type IIA, subunit B/N-terminal
+                     (InterPro:IPR001241), Ribosomal protein S5 domain 2-type
+                     fold (InterPro:IPR020568), Toprim domain
+                     (InterPro:IPR006171), Ribosomal protein S5 domain 2-type
+                     fold, subgroup (InterPro:IPR014721), DNA topoisomerase,
+                     type IIA, central (InterPro:IPR013760); BEST Arabidopsis
+                     thaliana protein match is: DNA GYRASE B1
+                     (TAIR:AT3G10270.1); Has 30201 Blast hits to 17322 proteins
+                     in 780 species: Archae - 12; Bacteria - 1396; Metazoa -
+                     17338; Fungi - 3422; Plants - 5037; Viruses - 0; Other
+                     Eukaryotes - 2996 (source: NCBI BLink)."
+                     /codon_start=1
+                     /product="DNA GYRASE B2"
+                     /protein_id="NP_568133.1"
+                     /db_xref="GeneID:830291"
+                     /db_xref="TAIR:AT5G04130"
+                     /db_xref="Araport:AT5G04130"
+                     /translation="MALLQRASYLRLYYLRLMGSRPRLFSSSLSPALHRHSSTLSSPP
+                     FSSPSPSFRLKFQLTSVLSQRLIQRNAISSRFLSTEASQETTTSKGYSSEQIQVLEGL
+                     DPVRKRPGMYIGSTGSRGLHHLVYEILDNAIDEAQAGYASKVDVVLHADGSVSVVDNG
+                     RGIPTDLHPATKKSSLETVLTVLHAGGKFGGTSSGYSVSGGLHGVGLSVVNALSEALE
+                     VSVWRDGMEHKQNYSRGKPITTLTCRVLPLESKGTKGTSIRFWPDKEVFTTAIEFDHN
+                     TIAGRIRELAFLNPKVTISLKKEDDDPEKTQYSEYSFAGGLTEYVSWLNTDKNPIHDV
+                     LGFRREINGATVDVALQWCSDAYSDTMLGYANSIRTIDGGTHIEGVKASLTRTLNTLA
+                     KKSKTVKEKDISLSGEHVREGLTCIVSVKVPNPEFEGQTKTRLGNPEVRKIVDQSVQE
+                     YLTEFLELHPDILESIISKSLNAYKAALAAKRARELVRSKSVLKSSSLPGKLADCSST
+                     DPEVSEIFIVEGDSAGGSAKQGRDRRFQAILPLRGKILNIERKDEAAMYKNEEIQNLI
+                     LGLGLGVKGEDFKKENLRYHKIIILTDADVDGAHIRTLLLTFFFRYQRALFDAGCIYV
+                     GVPPLFKVERGKNAQYCYDDADLKKITSNFPANASYNIQRFKGLGEMMPEQLWETTMN
+                     PETRILKQLVVDDIAEANMTFSSLMGARVDVRKELIKNAATRINLQRLDI"
+     mRNA            join(54..265,657..795,886..966,1052..1165,1335..1391,
+                     1539..1640,1915..2065,2156..2232,2393..2503,2853..2923,
+                     3189..3330,3696..3794,3926..4054,4282..4628)
+                     /gene="GYRB2"
+                     /locus_tag="AT5G04130"
+                     /gene_synonym="DNA GYRASE B2; F21E1.50; F21E1_50"
+                     /product="DNA GYRASE B2"
+                     /transcript_id="NM_180431.2"
+                     /db_xref="GeneID:830291"
+                     /db_xref="Araport:AT5G04130"
+                     /db_xref="TAIR:AT5G04130"
+     CDS             join(114..265,657..795,886..966,1052..1165,1335..1391,
+                     1539..1640,1915..2065,2156..2232,2393..2503,2853..2923,
+                     3189..3330,3696..3794,3926..4054,4282..4416)
+                     /gene="GYRB2"
+                     /locus_tag="AT5G04130"
+                     /gene_synonym="DNA GYRASE B2; F21E1.50; F21E1_50"
+                     /inference="Similar to RNA sequence,
+                     EST:INSD:ES056107.1,INSD:ES089611.1,INSD:AV821355.1,
+                     INSD:N97127.1,INSD:ES093180.1,INSD:EL013045.1,
+                     INSD:EH834770.1,INSD:ES076298.1,INSD:EL151625.1,
+                     INSD:ES029890.1"
+                     /note="DNA GYRASE B2; FUNCTIONS IN: DNA topoisomerase
+                     activity, DNA topoisomerase (ATP-hydrolyzing) activity,
+                     DNA binding, ATP binding; INVOLVED IN: DNA topological
+                     change, DNA metabolic process; LOCATED IN: mitochondrion;
+                     CONTAINS InterPro DOMAIN/s: Ribosomal protein S5 domain
+                     2-type fold (InterPro:IPR020568), DNA topoisomerase, type
+                     IIA, subunit B, domain 2 (InterPro:IPR013506), Ribosomal
+                     protein S5 domain 2-type fold, subgroup
+                     (InterPro:IPR014721), ATPase-like, ATP-binding domain
+                     (InterPro:IPR003594), DNA topoisomerase, type IIA, subunit
+                     B (InterPro:IPR000565), DNA topoisomerase, type IIA,
+                     subunit B/N-terminal (InterPro:IPR001241); BEST
+                     Arabidopsis thaliana protein match is: DNA GYRASE B1
+                     (TAIR:AT3G10270.1); Has 25944 Blast hits to 25881 proteins
+                     in 6578 species: Archae - 105; Bacteria - 19082; Metazoa -
+                     171; Fungi - 228; Plants - 112; Viruses - 77; Other
+                     Eukaryotes - 6169 (source: NCBI BLink)."
+                     /codon_start=1
+                     /product="DNA GYRASE B2"
+                     /protein_id="NP_001318477.1"
+                     /db_xref="GeneID:830291"
+                     /db_xref="TAIR:AT5G04130"
+                     /db_xref="Araport:AT5G04130"
+                     /translation="MALLQRASYLRLYYLRLMGSRPRLFSSSLSPALHRHSSTLSSPP
+                     FSSPSPSFRLKFQLTSVLSQRLIQRNAISSRFLSTEASQETTTSKGYSSEQIQVLEGL
+                     DPVRKRPGMYIGSTGSRGLHHLVYEILDNAIDEAQAGYASKVDVVLHADGSVSVVDNG
+                     RGIPTDLHPATKKSSLETVLTVLHAGGKFGGTSSGYSVSGGLHGVGLSVVNALSEALE
+                     VSVWRDGMEHKQNYSRGKPITTLTCRVLPLESKGTKGTSIRFWPDKEVFTTAIEFDHN
+                     TIAGRIRELAFLNPKVTISLKKEDDDPEKTQYSEYSFAGGLTEYVSWLNTDKNPIHDV
+                     LGFRREINGATVDVALQWCSDAYSDTMLGYANSIRTIDGGTHIEGVKASLTRTLNTLA
+                     KKSKTVKEKDISLSGEHVREGLTCIVSVKVPNPEFEGQTKTRLGNPEVRKIVDQSVQE
+                     YLTEFLELHPDILESIISKSLNAYKAALAAKRARELVRSKSVLKSSSLPGKLADCSST
+                     DPEVSGMYWPS"
+     CDS             join(114..265,657..795,886..966,1052..1165,1335..1391,
+                     1539..1640,1915..2065,2156..2232,2393..2503,2853..2923,
+                     3189..3330,3696..3794,3926..4054,4282..4416)
+                     /gene="GYRB2"
+                     /locus_tag="AT5G04130"
+                     /gene_synonym="DNA GYRASE B2; F21E1.50; F21E1_50"
+                     /codon_start=1
+                     /product="DNA GYRASE B2"
+                     /protein_id="NP_850762.1"
+                     /db_xref="GeneID:830291"
+                     /db_xref="Araport:AT5G04130"
+                     /db_xref="TAIR:AT5G04130"
+                     /translation="MALLQRASYLRLYYLRLMGSRPRLFSSSLSPALHRHSSTLSSPP
+                     FSSPSPSFRLKFQLTSVLSQRLIQRNAISSRFLSTEASQETTTSKGYSSEQIQVLEGL
+                     DPVRKRPGMYIGSTGSRGLHHLVYEILDNAIDEAQAGYASKVDVVLHADGSVSVVDNG
+                     RGIPTDLHPATKKSSLETVLTVLHAGGKFGGTSSGYSVSGGLHGVGLSVVNALSEALE
+                     VSVWRDGMEHKQNYSRGKPITTLTCRVLPLESKGTKGTSIRFWPDKEVFTTAIEFDHN
+                     TIAGRIRELAFLNPKVTISLKKEDDDPEKTQYSEYSFAGGLTEYVSWLNTDKNPIHDV
+                     LGFRREINGATVDVALQWCSDAYSDTMLGYANSIRTIDGGTHIEGVKASLTRTLNTLA
+                     KKSKTVKEKDISLSGEHVREGLTCIVSVKVPNPEFEGQTKTRLGNPEVRKIVDQSVQE
+                     YLTEFLELHPDILESIISKSLNAYKAALAAKRARELVRSKSVLKSSSLPGKLADCSST
+                     DPEVSGMYWPS"
+ORIGIN      
+        1 tacattgggg gtttagggtt ttatctttta cacagtgaag gtgaaaaaaa aatagcaaag
+       61 gaggaaaaaa acaaaatttg aagaagaaga aaaacctctg agcttccaat ttcatggcgc
+      121 ttcttcagag agcttcttat ctgcgtctct attatttacg gctcatgggt tctcgacctc
+      181 gtctcttctc tagctctctc tctcctgctc ttcaccgtca cagctcgacg ctctcctcgc
+      241 ctccattttc ctctccaagt cccaggttct cgcttccgct ccttctcctt tttcgttttc
+      301 ctttctgggt tcctggatat tcggcgaaat ataagaaagt agcttcgtat tcttggttca
+      361 gtactttggc ttgagttatt gaaattgcca agctctctaa tttcgtgtta agtttccgat
+      421 aaaatggcct agaaattgga aatttatact tggagtctct tgattctagc cttttcataa
+      481 agtatctgtg tttggagact tatgggttta ggttatttta gagaaattgc tgtgaaattt
+      541 tgcgttttga gtgttatctt aatcagtggt tttcatgcgg ttctgaattc ttttggttta
+      601 aagtgaatat tctgtttgca ttcctcaatt ggttgtttaa ttgagttatc tttcagtttc
+      661 aggttaaagt ttcagttaac cagtgttttg agtcaaagac tgatacaacg aaatgctatt
+      721 tcatcgaggt tcttgtctac tgaggcttcc caagagacta ccacatctaa gggttacagt
+      781 tctgaacaga ttcaagtaat cttttttatt atcctctttt ctactatata ttgtgtgaag
+      841 tcatgatttt aatttcaatc tttatatgtt cttatgatcc attaggtgct ggaaggctta
+      901 gaccctgtaa gaaaacgtcc aggaatgtat atcggaagca ctggatctcg tggtttgcat
+      961 catttggtaa atgctttatc cgttgaaacc cctcgtttga actggctctt gacatctttt
+     1021 tatgtttttc taatgtaatc tcttttctta ggtttatgag atacttgaca acgcaattga
+     1081 tgaggctcaa gctggttatg cctcaaaggt tgatgtcgtc ctacatgcag atggctcagt
+     1141 tagtgttgtg gacaatgggc gtggggtatg tgatatgtcc catcttctct ttaatcatgc
+     1201 agattttgtg ctagttttgg tatcgctagc ttttcgtttc ttacatctac ccacatatgg
+     1261 agagcaaaca catatgttaa ccataatcta ttctagtttt tccagtgtcg ttgatatata
+     1321 aatctttctt tcagataccc acggatttgc atcctgcgac aaaaaagtct tccctggaga
+     1381 ctgtgcttac ggtattgcta caaactttta tattttttca caatagtaat atggagattc
+     1441 tgcagtttat ttgtcgaggt tctgcagttt atgttggagc ttcatgacca tactattatt
+     1501 attatgcgat ttacctgcca tcttttttaa ttctgcaggt tttacatgcg ggtggcaagt
+     1561 ttggtggcac gagtagtggc tacagtgtgt ctggtggatt acatggtgtc ggtttatcag
+     1621 tagtaaatgc tttgtctgag gtgtgtccta atctttactc acattgattc ttcttttatc
+     1681 attttctcta tatctccttc agtgatttgt gaaaccctag gctactatgg gatttttacg
+     1741 agtaaaaagc tggaatgttt ccttattgaa ttctagggca tgttgttgtc aaatactctt
+     1801 ccttcacaag aactgcagga catttgtttg gaatgacttg aagtttaacc tagctgatga
+     1861 ctataattat cagtatagct aacttagaag attctttgat ctattggttt acaggctctg
+     1921 gaggtctcgg tttggagaga tgggatggag cataagcaaa attattctcg tggaaagccc
+     1981 ataactacac ttacatgtcg cgtcctcccc ctagagtcaa aggggactaa agggacaagc
+     2041 atcaggtttt ggcctgacaa agaaggtttt gcctgttttc cactcttgac taccttgcct
+     2101 aagccaaaac ttgatttaat gattaatttt cctctatgga atgaactatt ttcagttttc
+     2161 acaactgcaa tcgagttcga ccataacacc attgctggac gaattaggga gcttgcattt
+     2221 ttgaatccaa aggtgaaatt actttactta aagcatggta aaccatgaca atttttcatc
+     2281 aagacatgag aattcattgt agtttacttc ataaagcatc ttcacttttg gcagaggctg
+     2341 ctgttgaatg attcttttgt cataaaatat tactctattt ttatgtttgc aggttaccat
+     2401 ctctttaaaa aaggaggatg atgatcctga aaagacccaa tatagtgaat actcttttgc
+     2461 tggaggatta actgaatatg ttagttggct aaatactgat aaggtgagaa tctacacatt
+     2521 ggcacttttg gtgtatatga ggcctatcat attctttatg taagtaggct aagatgatta
+     2581 gaattttgaa aaggttctgt gaaacgatat gcaaggcagt ggtatcaatg aatgtctttt
+     2641 tctactaact gaagtgagca agatatgttg agcactactt ttgataagtt gatggctatc
+     2701 aatggatcta ctctactcca gcatatctat ggactattat gactcaattt atacagaagt
+     2761 gaactcttag cattattatc ttcattatca taaattattt tactactttc ttattcctac
+     2821 gttaaaagtt aactgacaat tcttttctgt agaatccaat tcatgacgtg ctgggtttca
+     2881 ggagagagat aaatggtgcc accgtggacg ttgcccttca atggtatgtt attctacata
+     2941 attacattgt ccaactagta ttctgttacg aggtaatatg cctaggttta ccagacccac
+     3001 acaattgaac agttcggctg catgattttg tggttttact cttacctgta aattgtgtca
+     3061 ataaaagtgg taaacctttg ttcatgttat tctcgacatg ctgtcgtttg ttttacacac
+     3121 aaatacacat aatataggac tattctaaat ggatctgatg ttattggctt tgcacatttt
+     3181 tgtaccaggt gctcagatgc atattcagac acaatgctgg gatatgccaa tagcattcgc
+     3241 actattgatg gtggaacaca catcgaaggt gtgaaagctt cattaacaag gactcttaat
+     3301 acccttgcaa aaaagtcaaa gactgttaag gtatgacatc agtaaccagc tttgcttatg
+     3361 ttgctatttt attttcattt tcagaggttt cgaccctttt tccattattt gttctccctt
+     3421 catttttgaa atatccatcg gcttttccaa gtactgtttt tcatgatcat agtttaattg
+     3481 ataagtgctc tgagatgttc ttcataatct catgggcttc tccgactatc ttctcctctc
+     3541 tatggactgg actaaatttg aatacctgta cttacacagt atagtaggct ctacagtaaa
+     3601 acgttcttga ttcatacctt caataaataa tatacttcct tcatttcttt tttgtattta
+     3661 taattatttt atatttttgt tggctgtgtt ttcaggagaa agatattagc ttaagtgggg
+     3721 aacatgttag agagggattg acctgtatcg tctcagtcaa ggttcctaat cctgagtttg
+     3781 aaggtcaaac aaaggtacgt gatgatgatt gcctctttag tgttgatcta tgtatggtca
+     3841 acatgaagca atttcttctg tcatatttgt ggaaatttac cccaactaat ataattcgtc
+     3901 tactaatccc acttccacct tgcagacaag attaggaaat ccagaggtga gaaaaattgt
+     3961 tgaccaatca gttcaggaat atctcacaga gtttttggaa ttgcatccag atattcttga
+     4021 gagcattatt tccaaatccc ttaacgctta caaggtatgc ttttcaatgc acatatcaat
+     4081 atttctgcat cttcatctac aagcatgcac caagtgtatg tttcaaccca caagaacggg
+     4141 tacagcagtt tgtaattggc tatttcatgt gatttagcgt ttggccttca acgtccttca
+     4201 tgttatctac cccctgctct gcttattatt aatgtgtcag ttgctaactt tcatctgcct
+     4261 caccacgctt tctctctcta ggctgctttg gctgccaaga gggcaaggga gttggtcagg
+     4321 tcgaaaagcg ttttgaagtc atcatcactt cctgggaaac tggctgattg ctcatcaaca
+     4381 gatcctgaag tatctggtat gtattggcca tcatgaaaat gtcgtttgtt taattgatta
+     4441 aagctaaaca tgacagaagt atctgatctt cttattgtat attccaagtg agaagttaaa
+     4501 aagggaaatc taggctttaa ttatgtggct acaacgatta caaccggtaa gccattagcc
+     4561 atgctaattc ggtcaagtag tgacatccct ttgcaatctc tgcagaaatt tttatagttg
+     4621 aaggagattc tgctggtggc agtgcgaaac agggccgtga tagacgattt caggtaatca
+     4681 cacttctacc tctatttcat tgtgtaacta tctaagaagg gcgatggtta ggtttttttt
+     4741 ctttccattg ttgatccatc ctttaaagaa cctatgtttg ctttccgatc aataaggtta
+     4801 ggattagact gatcaataca aggagtcttc tcttgaccag ccaaatatgt tgtattttct
+     4861 atgaaattag gaaacctgta cagcttgaaa ggcaattctt cctttgaaag aattcaacag
+     4921 gtttttggtt tttgtaggca attcttcctt tgagaggtaa aattctgaac attgaaagaa
+     4981 aggatgaagc agccatgtat aagaatgaag aaattcaaaa tctaattctt ggccttggcc
+     5041 tcggtgtgaa ggtgatgtat ccattttcca tctcttgttt ttccttttct cttttttttt
+     5101 ttttgggtgt atatggaaaa ctcaatgcaa taaataactt gtttcaggga gaagatttta
+     5161 agaaagaaaa tttgcggtac cataagataa tcatcttaac agatgcagat gttgatggtg
+     5221 cacatatccg gacacttctg ttgacctttt tcttcagata tcaggtatta gttaaggatt
+     5281 aaacaaaaat atcccctaaa tatttggcag agttaatcta gttgtaaaca tgacttaaaa
+     5341 tttcttctac agagagcctt gtttgatgca ggttgcatat atgtcggtgt tcctcctctg
+     5401 ttcaaggtag attttatatt tttatgatct tcaaaacttt gatgctttag atttagaaaa
+     5461 attattaaca aatactatga aaacgatcag gttgaaaggg gaaagaatgc acaatattgc
+     5521 tatgatgatg cagaccttaa aaagatcacc agtaacttcc ctgcaaacgc atcctacaac
+     5581 attcaaaggt tcaaaggtaa atatctgagt tttgtgatct acattgtctg gcatcctcac
+     5641 atgatattga ttgctacgag gacagtttta aaatctttag catccaatac cagaatgtaa
+     5701 tgaaaggaag atggcaaact tgttgttctg tttcgttgtc tggttttgca ggtttgggag
+     5761 agatgatgcc tgaacagctt tgggaaacga caatgaatcc agaaacaagg atactaaagc
+     5821 aacttgttgt cgatgatata gcggaagcaa acatgacatt ctcatctctt atgggtgctc
+     5881 gggtaagccc tcaaatttcc gactccattg atttttttgg gggtaaaaaa caggcttatt
+     5941 cacaagctta actgcagttt gattgatcta atactgtgtt tcttaatctc aggtcgatgt
+     6001 ccggaaagaa ctcatcaaaa atgctgcaac taggatcaac ctgcagcgtc tagacatata
+     6061 acaggaaacc acttgagatt ggtctctaca tatttcttca tctggtcaga gacattagat
+     6121 tatatatttg tcaaaggcca acaatctttt gtttgtttct ctggcctagc aaaagtgacc
+     6181 accgttacaa ttgtgactgt aaaaaaggta tttcgtaatg cgttcacggg ctttcttcgc
+     6241 tgtaactctt tttttttgtt tatctttgct ttaacctttg tacttttacc tcaaaaatca
+     6301 aaacgaaaat tacgatcaga gatgtccaac aaataaagtc tcatt
+//
+

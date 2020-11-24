@@ -1,0 +1,295 @@
+LOCUS       NC_003074               6969 bp    DNA     linear   CON 14-FEB-2019
+DEFINITION  Arabidopsis thaliana chromosome 3 sequence.
+ACCESSION   NC_003074 REGION: complement(3339392..3346360)
+VERSION     NC_003074.8
+DBLINK      BioProject: PRJNA116
+            BioSample: SAMN03081427
+            Assembly: GCF_000001735.4
+KEYWORDS    RefSeq.
+SOURCE      Arabidopsis thaliana (thale cress)
+  ORGANISM  Arabidopsis thaliana
+            Eukaryota; Viridiplantae; Streptophyta; Embryophyta; Tracheophyta;
+            Spermatophyta; Magnoliopsida; eudicotyledons; Gunneridae;
+            Pentapetalae; rosids; malvids; Brassicales; Brassicaceae;
+            Camelineae; Arabidopsis.
+REFERENCE   1  (bases 1 to 6969)
+  AUTHORS   Salanoubat,M., Lemcke,K., Rieger,M., Ansorge,W., Unseld,M.,
+            Fartmann,B., Valle,G., Blocker,H., Perez-Alonso,M., Obermaier,B.,
+            Delseny,M., Boutry,M., Grivell,L.A., Mache,R., Puigdomenech,P., De
+            Simone,V., Choisne,N., Artiguenave,F., Robert,C., Brottier,P.,
+            Wincker,P., Cattolico,L., Weissenbach,J., Saurin,W., Quetier,F.,
+            Schafer,M., Muller-Auer,S., Gabel,C., Fuchs,M., Benes,V.,
+            Wurmbach,E., Drzonek,H., Erfle,H., Jordan,N., Bangert,S.,
+            Wiedelmann,R., Kranz,H., Voss,H., Holland,R., Brandt,P.,
+            Nyakatura,G., Vezzi,A., D'Angelo,M., Pallavicini,A., Toppo,S.,
+            Simionati,B., Conrad,A., Hornischer,K., Kauer,G., Lohnert,T.H.,
+            Nordsiek,G., Reichelt,J., Scharfe,M., Schon,O., Bargues,M.,
+            Terol,J., Climent,J., Navarro,P., Collado,C., Perez-Perez,A.,
+            Ottenwalder,B., Duchemin,D., Cooke,R., Laudie,M., Berger-Llauro,C.,
+            Purnelle,B., Masuy,D., de Haan,M., Maarse,A.C., Alcaraz,J.P.,
+            Cottet,A., Casacuberta,E., Monfort,A., Argiriou,A., flores,M.,
+            Liguori,R., Vitale,D., Mannhaupt,G., Haase,D., Schoof,H., Rudd,S.,
+            Zaccaria,P., Mewes,H.W., Mayer,K.F., Kaul,S., Town,C.D., Koo,H.L.,
+            Tallon,L.J., Jenkins,J., Rooney,T., Rizzo,M., Walts,A.,
+            Utterback,T., Fujii,C.Y., Shea,T.P., Creasy,T.H., Haas,B.,
+            Maiti,R., Wu,D., Peterson,J., Van Aken,S., Pai,G., Militscher,J.,
+            Sellers,P., Gill,J.E., Feldblyum,T.V., Preuss,D., Lin,X.,
+            Nierman,W.C., Salzberg,S.L., White,O., Venter,J.C., Fraser,C.M.,
+            Kaneko,T., Nakamura,Y., Sato,S., Kato,T., Asamizu,E., Sasamoto,S.,
+            Kimura,T., Idesawa,K., Kawashima,K., Kishida,Y., Kiyokawa,C.,
+            Kohara,M., Matsumoto,M., Matsuno,A., Muraki,A., Nakayama,S.,
+            Nakazaki,N., Shinpo,S., Takeuchi,C., Wada,T., Watanabe,A.,
+            Yamada,M., Yasuda,M. and Tabata,S.
+  CONSRTM   European Union Chromosome 3 Arabidopsis Sequencing Consortium;
+            Institute for Genomic Research; Kazusa DNA Research Institute
+  TITLE     Sequence and analysis of chromosome 3 of the plant Arabidopsis
+            thaliana
+  JOURNAL   Nature 408 (6814), 820-822 (2000)
+   PUBMED   11130713
+REFERENCE   2  (bases 1 to 6969)
+  CONSRTM   NCBI Genome Project
+  TITLE     Direct Submission
+  JOURNAL   Submitted (14-FEB-2019) National Center for Biotechnology
+            Information, NIH, Bethesda, MD 20894, USA
+REFERENCE   3  (bases 1 to 6969)
+  AUTHORS   Krishnakumar,V., Cheng,C.-Y., Chan,A.P., Schobel,S., Kim,M.,
+            Ferlanti,E.S., Belyaeva,I., Rosen,B.D., Micklem,G., Miller,J.R.,
+            Vaughn,M. and Town,C.D.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (17-MAY-2016) Plant Genomics, J. Craig Venter Institute,
+            9704 Medical Center Dr, Rockville, MD 20850, USA
+  REMARK    Protein update by submitter
+REFERENCE   4  (bases 1 to 6969)
+  AUTHORS   Swarbreck,D., Lamesch,P., Wilks,C. and Huala,E.
+  CONSRTM   TAIR
+  TITLE     Direct Submission
+  JOURNAL   Submitted (18-FEB-2011) Department of Plant Biology, Carnegie
+            Institution, 260 Panama Street, Stanford, CA, USA
+COMMENT     REVIEWED REFSEQ: This record has been curated by TAIR and Araport.
+            The reference sequence is identical to CP002686.
+            On Jun 19, 2009 this sequence version replaced NC_003074.7.
+            
+            ##Genome-Annotation-Data-START##
+            Annotation Provider :: TAIR and Araport
+            Annotation Status   :: Full annotation
+            Annotation Pipeline :: Eukaryotic Annotation Propagation Pipeline
+            ##Genome-Annotation-Data-END##
+FEATURES             Location/Qualifiers
+     source          1..6969
+                     /organism="Arabidopsis thaliana"
+                     /mol_type="genomic DNA"
+                     /db_xref="taxon:3702"
+                     /chromosome="3"
+                     /ecotype="Columbia"
+     gene            1..6969
+                     /gene="GYRA"
+                     /locus_tag="AT3G10690"
+                     /gene_synonym="DNA GYRASE A; T7M13.23"
+                     /db_xref="Araport:AT3G10690"
+                     /db_xref="GeneID:820238"
+                     /db_xref="TAIR:AT3G10690"
+     mRNA            join(1..542,637..706,805..870,985..1086,1275..1319,
+                     1396..1494,1634..1720,1854..1924,2413..2521,2627..2689,
+                     2839..2904,3000..3088,3290..3338,3492..3578,3680..3773,
+                     4159..4229,4315..4404,4795..4920,5007..5164,5263..5344,
+                     5451..5615,5693..5794,5887..6023,6117..6234,6311..6365,
+                     6450..6549,6623..6969)
+                     /gene="GYRA"
+                     /locus_tag="AT3G10690"
+                     /gene_synonym="DNA GYRASE A; T7M13.23"
+                     /product="DNA GYRASE A"
+                     /inference="Similar to RNA sequence,
+                     EST:INSD:AV782145.1,INSD:BP628585.1,INSD:ES133489.1,
+                     INSD:EL052985.1,INSD:ES082736.1,INSD:AV567672.1,
+                     INSD:ES099176.1,INSD:EL198875.1,INSD:ES197745.1,
+                     INSD:AI995400.1,INSD:EH917747.1,INSD:ES057146.1,
+                     INSD:EG485376.1,INSD:ES168712.1,INSD:AV546063.1,
+                     INSD:EH952095.1,INSD:EL160939.1,INSD:EH941689.1,
+                     INSD:ES157794.1,INSD:EH925290.1,INSD:EL007575.1,
+                     INSD:EL197741.1,INSD:BE525773.1,INSD:AV529478.1,
+                     INSD:EH891909.1,INSD:AV547612.1,INSD:ES123777.1"
+                     /transcript_id="NM_111905.3"
+                     /db_xref="GeneID:820238"
+                     /db_xref="TAIR:AT3G10690"
+                     /db_xref="Araport:AT3G10690"
+     CDS             join(118..542,637..706,805..870,985..1086,1275..1319,
+                     1396..1494,1634..1720,1854..1924,2413..2521,2627..2689,
+                     2839..2904,3000..3088,3290..3338,3492..3578,3680..3773,
+                     4159..4229,4315..4404,4795..4920,5007..5164,5263..5344,
+                     5451..5615,5693..5794,5887..6023,6117..6234,6311..6365,
+                     6450..6549,6623..6749)
+                     /gene="GYRA"
+                     /locus_tag="AT3G10690"
+                     /gene_synonym="DNA GYRASE A; T7M13.23"
+                     /inference="Similar to RNA sequence,
+                     EST:INSD:AV782145.1,INSD:BP628585.1,INSD:ES133489.1,
+                     INSD:EL052985.1,INSD:ES082736.1,INSD:AV567672.1,
+                     INSD:ES099176.1,INSD:EL198875.1,INSD:ES197745.1,
+                     INSD:AI995400.1,INSD:EH917747.1,INSD:ES057146.1,
+                     INSD:EG485376.1,INSD:ES168712.1,INSD:AV546063.1,
+                     INSD:EH952095.1,INSD:EL160939.1,INSD:EH941689.1,
+                     INSD:ES157794.1,INSD:EH925290.1,INSD:EL007575.1,
+                     INSD:EL197741.1,INSD:BE525773.1,INSD:AV529478.1,
+                     INSD:EH891909.1,INSD:AV547612.1,INSD:ES123777.1"
+                     /note="DNA GYRASE A (GYRA); FUNCTIONS IN: DNA
+                     topoisomerase activity, catalytic activity, ATP binding;
+                     INVOLVED IN: DNA topological change, DNA metabolic
+                     process; LOCATED IN: mitochondrion, chloroplast, nucleoid;
+                     EXPRESSED IN: 22 plant structures; EXPRESSED DURING: 13
+                     growth stages; CONTAINS InterPro DOMAIN/s: DNA gyrase,
+                     subunit A (InterPro:IPR005743), DNA topoisomerase, type
+                     IIA, subunit A/C-terminal (InterPro:IPR002205), DNA
+                     topoisomerase, type IIA, subunit A/ C-terminal, alpha-beta
+                     (InterPro:IPR013758), DNA topoisomerase, type IIA, subunit
+                     A, alpha-helical (InterPro:IPR013757), DNA topoisomerase,
+                     type IIA, central (InterPro:IPR013760), DNA
+                     gyrase/topoisomerase IV, subunit A, C-terminal
+                     beta-pinwheel (InterPro:IPR006691); BEST Arabidopsis
+                     thaliana protein match is: topoisomerase II
+                     (TAIR:AT3G23890.1); Has 22353 Blast hits to 21396 proteins
+                     in 3265 species: Archae - 84; Bacteria - 12907; Metazoa -
+                     182; Fungi - 204; Plants - 111; Viruses - 99; Other
+                     Eukaryotes - 8766 (source: NCBI BLink)."
+                     /codon_start=1
+                     /product="DNA GYRASE A"
+                     /protein_id="NP_187680.2"
+                     /db_xref="GeneID:820238"
+                     /db_xref="TAIR:AT3G10690"
+                     /db_xref="Araport:AT3G10690"
+                     /translation="MTPVLCHSTASIPNPNSLMSLSSTLRLSSSLLRRSFFRFPLTDP
+                     LCRLRRTEPSATRFFSSRTPRSGKFVVGAGKRGDEQVKEESGANNGGLVVSGDESRIV
+                     PFELHKEATESYMSYALSVLLGRALPDVRDGLKPVHRRILFAMHELGMSSKKPYKKCA
+                     RVVGEVLGKFHPHGDTAVYDSLVRMAQSFSLRCPLIQGHGNFGSIDADPPAAMRYTEC
+                     RLDPLAEAVLLSDLDQDTVDFVANFDNSQKEPAVLPARLPALLLNGASGIAVGMATNI
+                     PPHNLGELVDVLCALIHNPEATLQELLEYMPAPDFPTGGIIMGNLGVLDAYRTGRGRV
+                     VVRGKAEVELLDPKTKRNAVIITEIPYQTNKATLVQKIAELVENKTLEGISDIRDESD
+                     RNGMRVVIELKRGGDPALVLNNLYRHTALQSSFSCNMVGICDGEPKLMGLKELLQAFI
+                     DFRCSVVERRARFKLSHAQQRKHIIEGIVVGLDNVDEVIELITKASSHSSATAALQSE
+                     YGLSEKQAEAILEITLRRLTALERKKFTDESSSLTEQITKLEQLLSTRTNILKLIEQE
+                     AIELKDRFSSPRRSMLEDSDSGDLEDIDVIPNEEMLMAVSEKGYVKRMKADTFNLQHR
+                     GTIGKSVGKLRVDDAMSDFLVCHAHDHVLFFSDRGIVYSTRAYKIPECSRNAAGTPLV
+                     QILSMSEGERVTSIVPVSEFAEDRYLLMLTVNGCIKKVSLKLFSGIRSTGIIAIQLNS
+                     GDELKWVRCCSSDDLVAMASQNGMVALSTCDGVRTLSRNTKGVTAMRLKNEDKIASMD
+                     IIPASLRKDMEEKSEDASLVKQSTGPWLLFVCENGYGKRVPLSSFRRSRLNRVGLSGY
+                     KFAEDDRLAAVFVVGYSLAEDGESDEQVVLVSQSGTVNRIKVRDISIQSRRARGVILM
+                     RLDHAGKIQSASLISAADEEETEGTLSNEAVEAVSL"
+ORIGIN      
+        1 caaagacccc cgccaaagta ttgaaattcg cgcctgagaa attctccggt gtggctctct
+       61 agggttttag cactttaatc catttgtact tgtaaaaatc cctaaaaccc tctgggcatg
+      121 actccagtat tatgccattc cactgcttca atccctaacc ctaactctct catgtctctc
+      181 tcctccactc tccgtctctc ttcctccctt cttcgccgct ccttcttccg attccccctc
+      241 accgacccat tatgccgtct ccgccgcact gaaccctccg ccacgcgttt cttctcctcc
+      301 cgtactcctc ggtccggcaa attcgttgtc ggtgctggta agcgcggaga tgagcaggtc
+      361 aaggaagagt ccggagctaa caatggcggt ttggttgttt ctggggacga atctcgtatt
+      421 gtgccttttg agctacataa ggaagctact gagtcgtata tgtcgtatgc gctctctgtt
+      481 ttgcttggac gtgctttgcc tgatgttaga gacggactaa aaccagtaca tcggagaatt
+      541 ctgttgagtg actttcgttc ggctcaaagc tactgatatt tttaagctta gtcagtggta
+      601 ttgttccttc taatgttcga ttattttgtc ttccagcttt gcaatgcatg agttggggat
+      661 gtcatctaaa aaaccataca agaaatgtgc aagagttgtt ggagaggtat attattgatt
+      721 tttggaaagt gttttctcag tcgatttctc taaatatctt attctgaaga acgatttgtg
+      781 ctgttgaatt ctttgggttt tcaggttctt ggtaaattcc atccgcatgg agatactgct
+      841 gtttatgatt ctcttgttag gatggctcag gtaaatatct gaattcatgg aatgtagtcc
+      901 agtcctcaaa taatgtttca ggcacgattc gattcttccc aaacttctga cttttttgtt
+      961 ttaatacctt tgtttttttg gcagagtttc tccttgagat gtccacttat ccaaggccat
+     1021 ggaaattttg gctcaataga tgcagatcct cctgctgcta tgcgttacac tgaatgcaga
+     1081 ctcgatgtga gtgcctttta ccttactttc ccttctagtt gaaatggttt tccctgcaat
+     1141 tcactttttc tagttgtttc acttgtcttt gctatctata gtgtatctct catctctact
+     1201 ttttctcttg tcttgagatg aacatgtatt tttgtcagtg ttttcagctg attgtactta
+     1261 ttttttttct gcagccactg gcagaggcag tactattgtc tgatctggat caagatacgg
+     1321 taacctcact attaatttgt tgccaagttt accgatactc aactagatgg tccttaacct
+     1381 cttttgtttt ggcaggtgga ttttgtggcc aattttgata actcacaaaa agaaccagca
+     1441 gtgttgcctg ctcgtcttcc tgctttgttg ttgaatggag cttctgggat tgcggtaaaa
+     1501 taatcaaaca aatcttaaat ctgaactcct taatagattt tgttcgagat ttcttcagtt
+     1561 aatcttgtgc agattttccc tgctgtatga gattgaatat gcagttgaat cttgatcatt
+     1621 tcacattgtt taggttggca tggcaacaaa tattccccct cataatcttg gggagttggt
+     1681 agacgtgctt tgcgctttaa tccataatcc agaagcaacg gtatcactca tctccccttt
+     1741 gtttttctgt gatttatcaa tttgtgggtc ttttgtttta catgaaaaat cctctgtttt
+     1801 ataagtagac aactcataag attttgtttc cactttcttc ttcgtctggg cagctgcaag
+     1861 aactgctgga atacatgcct gcaccggatt ttccaactgg aggaataata atgggaaacc
+     1921 ttgggtaact ctttgctttc caatttctcc ccaaagggat cttatacatt aatgactttt
+     1981 gtttgcccac ctcgtttgct aattttttga gagtaggcta tctataggat caaatagaaa
+     2041 gactcacttc taaagtgtga aacttttttt ttatggaaat agaaaagcat tttgttttgt
+     2101 tttgatctat gattctaaca gattacagaa gctgtaccta tatcttaaaa ggaacctaga
+     2161 aaatgagtga agaggatggt ccagttaata gttttccttt atttgtctgt catatgcagt
+     2221 ttttgaatca tcatgttttt ttctgatggt gtgagtgatt ttttaatatt ctgaaagctt
+     2281 atatgttgtg tagtacattt actctcgagt ttgttgaata cctttattaa aaaaatagtt
+     2341 tgcattcata tgccatttcc ttttacaatg ttggattctt ataattttct aatgtgtgtt
+     2401 tgcgctttca agggttttgg atgcttaccg aactggccga gggcgagttg tagttagagg
+     2461 aaaagctgaa gttgaattgt tggatccaaa gacaaagcgg aatgcagtta ttatcacaga
+     2521 ggtgatcaat ttagtttttt agattaatgt tcagatctcc atggatgagg gtttcaaaaa
+     2581 tgtttattag cagtagagta atgcctttag tgtgacttta ttgcagattc cttaccagac
+     2641 aaacaaagct acacttgtcc agaagattgc cgaacttgtt gaaaataagg tacaactaaa
+     2701 cttgcgacat ctaatgttta ttttgcttca cttagcaata tgtacttatt ttactcagag
+     2761 gtgtgttaca tttctagtat gtccttatat gcttgcaaag tttcttcttt attcattgat
+     2821 gttggtgttt gttttcagac gctagagggc ataagtgaca tacgtgacga gagtgatcgt
+     2881 aatgggatgc gtgtggttat tgaggtatta cactgtttcc tctgcactta gatgtattag
+     2941 tctgctttaa aatttcatat tggaaggtaa ttaagataat ttccaatact tctctatagc
+     3001 tcaaaagagg aggggatcct gcacttgtgc ttaataatct ttaccggcat actgcccttc
+     3061 aatcaagctt cagctgcaac atggtggggt gagttgcatc aaccgataac ttcttatttc
+     3121 ctgtactttt ttgaagagtg ggcatataaa agaacttggg cattttccag gatgactagt
+     3181 tgaaaattct ctaatgagta tgttatgctt gtaaatatat taaggatcat gtattcacat
+     3241 atgcgttttt ctttatcgta actggattat ggtattctgt gttttacagt atctgcgatg
+     3301 gagaacccaa gctaatggga ttaaaagaac tacttcaggt gaccacttgt ctatgtaaat
+     3361 catttatcta cgtagcccac aaggagtaat agaaaagtga agatcagaga taggatattt
+     3421 acttctgtgc tactgtaatc acattttaaa gtaaatttgt tgattacttt ctgtttcttg
+     3481 cttgtgtgta ggcatttata gatttcaggt gttctgtcgt cgaaaggcgt gcaagattca
+     3541 agctttcaca tgcacaacaa cgaaagcata ttattgaggt gcgactagaa atatttaact
+     3601 ttcttaaatc tgctcgtgaa gaccatgatg taatgatgta aagcattttt tctaatatct
+     3661 tcactgtata tatgcttagg gtattgtggt tgggcttgac aatgtggacg aagtaatcga
+     3721 actcatcacg aaggcctcaa gtcattcctc tgctactgct gctttacaaa gtggtgagct
+     3781 atattttact ttgacaatat aatcaatgta acaatcttga actgcacatt ataggttgat
+     3841 gtataaacag aattcggaaa agtgagcgag aattaggagt caaaaagtag actagagcca
+     3901 atttttctta ggtggactga tagatgtagt ctaggatgta cactattaaa agaatacatc
+     3961 ttgtggtgaa ctcttccata ttacatttga acattatata tttcttgtct ttttatctgg
+     4021 aactgctgga gtctcattcg ttgtaagatt tgatcttaat tgcaaagatt tcttagggat
+     4081 ttatgctttg taagtctcta ttgtaaggga cgataccata tattaaaatt aacacttgtc
+     4141 aaacatttac ttatgtagaa tatggtcttt ctgagaaaca agctgaggct atactggaga
+     4201 taactcttcg aaggctaact gctcttgagg tgctttctta ttctcgctaa gttcaattta
+     4261 tgaaacttgt aggcttgaca atgttctaac tagattctcc cttcataaat gcagcggaaa
+     4321 aagtttactg atgaaagtag ttcactaaca gagcaaatta caaagttgga gcagctatta
+     4381 tcaacccgaa caaacatcct aaaggtgaca cactcacttt ttagttatct gttcttttgg
+     4441 ctattgatat tagaaattta gaacacctag atgctagtag aatgatagat gcatcaatat
+     4501 atgtactcca aatttgtaag cttgactgtt tgagtccact gaggttcaaa atctagtcca
+     4561 tgcattatga tgtggtataa ggattcaaat gcttcttcca tttcttgttt ggtacttatt
+     4621 tttatatctg taaagctgct tactatatgt tgctgttctg ggccaatgtt aggaagataa
+     4681 ctgatacatg atgattttct tgtagaccaa aattgaacta tttgcttcgt ttacttcatt
+     4741 gtatattact tactacttta ttctcttcgt tgtttttctt gtatttttct ttagttaatc
+     4801 gaacaagaag caatagagct gaaggacaga ttctcaagtc ccaggcgttc aatgttggag
+     4861 gattctgaca gtggtgatct agaagatata gatgttattc caaatgaaga gatgctgatg
+     4921 gtatgttgca tacttaaacc tagaaagttt ctcaacgttg aaatttttgt tgtttgtttt
+     4981 gtaacttttg atatggatga ctataggcag tcagcgaaaa gggctatgtg aagagaatga
+     5041 aggccgatac attcaatctt cagcatcgtg gaacaattgg caaatctgtt gggaaactaa
+     5101 gagttgatga tgcaatgtct gactttcttg tttgtcatgc acatgaccat gtcctctttt
+     5161 tcaggtatgt atacctcaaa atttcctttg tgtttgctac gcacatggat attaattttc
+     5221 tgccttgttg taattcattg cttatacttg ttgtacattc agtgaccggg gtatagttta
+     5281 ctcaacccgt gcatataaaa ttccagaatg ctctcgcaat gcagctggta cacctttggt
+     5341 tcaggtaatt acatatctgt gtatctatgt tttccttctg ctatgtcaaa aattattcaa
+     5401 ttttatgaaa ggctaatgtt ttgctgtgtt catgtgactt gtggaagcag atattatcca
+     5461 tgtcggaagg tgaaagagta acctccattg ttcctgttag cgagtttgct gaagatcgct
+     5521 acctcctgat gcttacagtg aatggctgca tcaagaaagt atctttgaaa ttattttcag
+     5581 gaatacgctc aactggaatc atagcaattc agttggtttg tccccttttt cttcttagtc
+     5641 atataggaag tcttcttaac aaggttactc taacaaaatt atttgtcttc agaattctgg
+     5701 tgatgaactg aaatgggttc gttgttgctc aagcgacgat cttgtagcca tggcatccca
+     5761 aaatggaatg gtcgccttga gtacatgtga tggtgtaagt tgtggctctc attttttcta
+     5821 aatgattcat ctttcatgta aaccttttaa tacttgagca aactctgatg gcttttgttt
+     5881 gtttaggttc gcacactgag cagaaataca aagggagtga ctgccatgag actcaagaat
+     5941 gaggataaga tagcgagcat ggacatcata cctgcatctc tgcggaaaga tatggaagag
+     6001 aagtcggaag atgcttcact tgtgtatgtt tttcttaact tatatctgct gatgtttgct
+     6061 ctagaaactt acttatgtct tactgtcttc ttttgttaac acaatcacaa aagcaggaaa
+     6121 caatccacgg gtccatggct attattcgtg tgtgagaatg gctatggaaa gcgtgttcct
+     6181 ctgagtagct tccggcgttc gcgtctgaac agagttggtt tatctggata caaggtagga
+     6241 tctggatttt caccattttt ggttgtgttt gtgttgattt ttcccttaca tctaaatctc
+     6301 aatttgtcag tttgctgagg atgatcgttt ggctgctgtt ttcgttgttg gttactcctt
+     6361 ggctggtaag tatacactgc cacaaatacg gatttaaatg ttctttgatt gctgtttata
+     6421 tataatctca ccattgggtt ttcttgcaga ggatggggag agtgatgagc aagtagttct
+     6481 ggtgagccaa agcggaactg tgaaccggat caaagtcagg gatatctcaa tccaatctcg
+     6541 cagagcacgg tactcccttc atgtgacagt cttttcaaat gtatatttta tatggtttct
+     6601 catttgattg ttaatttctc aggggagtga ttcttatgcg gctagatcat gccggcaaaa
+     6661 tccaatctgc atctctgatc tctgcagcag atgaagaaga aacagaagga actctaagta
+     6721 atgaagccgt agaagccgtt agcctgtaaa ttttacaatc ccaattccac cagtttttga
+     6781 gacaattgtc aagttcagta catagagtct atgtgctaac tctcttcatt ttgttttttt
+     6841 gtgatgttac tacgagaaga gaaaaccatg atcgaagtta gttattaaca ttaatctgct
+     6901 tcacattttg ttgggtttaa ctatatacat atgttaagaa agttgaaacc aattattctg
+     6961 gttataacc
+//
+
