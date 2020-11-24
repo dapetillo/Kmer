@@ -10,6 +10,8 @@ import scipy.stats
 import seaborn as sns
 from Bio import SeqIO
 import sys
+import configparser
+
 
 
 class Kmer():
@@ -97,7 +99,8 @@ class Kmer():
         self.corr_matrix = None
         self.ordered_kmers = None
 
-    def read_seqs(self):
+
+    def parse_genbank(self, gb, features = ["source", "CDS", "mRNA", "ncRNA"]):
         """It processes the Genbank (*.gb) and FASTA (*.fasta) files
         to extract the sequences. 
 
@@ -106,30 +109,42 @@ class Kmer():
 
         """
 
-        path = os.path.abspath(self.seq_dir)
-        names_taken = []
-        for fil in self.filenames:
-            full_path = os.path.join(path, fil)
-            if fil.endswith(".gb"):
-                rec = SeqIO.read(full_path, "genbank")
-                for rec in SeqIO.parse(full_path, "genbank"):
-                    for ff in rec.features:
-                        if ff.type == "source":  #this line select the genbank feature
-                            seq = ff.location.extract(rec).seq
-                            self.length_seqs.append(len(seq))
-                            self.seqs.append(seq)
-                            names_taken.append(fil)
-                            break   #in a *.gb file features can repeat (more studies on same region)
-            elif fil.endswith(".fasta"):
-                seq = ''.join(SeqIO.read(open(full_path), "fasta").seq)
-                self.length_seqs.append(len(seq))
-                if seq[0].islower():   #some fasta file can have lower-case character (by default
-                                       #they must be upper-case)
-                    seq = seq.upper()
-                self.seqs.append(seq)
-                names_taken.append(fil)
 
-        self.filenames = [x for x in self.filenames if x in names_taken] # to have correspondence between
+        feat_seqs = {}
+        file_format = "genbank"
+        feat_parser = configparser.ConfigParser()
+        feat_parser.read("features.ini")
+
+        for element in features:
+            value = feat_parser[file_format].get(element)
+            if value is None:
+                raise ValueError("{} is an invalid feature for GenBank".format(element))
+            else:
+                feat_seqs[value] = []
+
+        for record in SeqIO.parse(gb, "genbank"):
+            feat_seqs["ID"] = record.id
+            for feat in record.features:
+                if feat.type in features:
+                    feat_seqs[feat.type].append(feat.location.extract(record).seq)
+            
+            self.seqs.append(feat_seqs)
+
+
+    def parse_fasta(self, fa):
+
+        seq = {}
+        for record in SeqIO.parse(fa, "fasta"):
+            seq["ID"] = record.id
+            seq["source"] = (record.seq).upper()
+            
+            self.seqs.append(seq)
+
+        #self.length_seqs.append(len(seq))
+        #self.seqs.append(seq)
+        #names_taken.append(fil)
+
+        #self.filenames = [x for x in self.filenames if x in names_taken] # to have correspondence between
                                                                          # name and its sequence
 
     def optimal_k(self, max_k=None):
@@ -578,9 +593,16 @@ class Kmer():
 
 if __name__ == "__main__":
 
-    quest = Kmer(corr="P", seq_dir="test_seqs/test_skmer")
-    #quest.read_seqs(rel_path="open_source/Kmer/test_seqs")
-    quest.read_seqs()
+    quest = Kmer(corr="P", seq_dir="test_seqs")
+    filenames = os.listdir("test_seqs")
+    for ff in filenames:
+        full_path = os.path.abspath(os.path.join("test_seqs", ff))
+        if ff.endswith("gb"):
+            quest.parse_genbank(full_path)
+        elif ff.endswith("fasta"):
+            quest.parse_fasta(full_path)
+    print(quest.seqs)
+    sys.exit()
     decision = input("Do you want to perform sKmer? [y/n] ")
     if decision == "y":
         quest.sKmer()
