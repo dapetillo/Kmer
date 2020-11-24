@@ -13,6 +13,7 @@ import sys
 import configparser
 
 
+
 class Kmer():
 
     """This class implements an alignment-free algorithm to correlate genetic sequences.
@@ -98,6 +99,7 @@ class Kmer():
         self.corr_matrix = None
         self.ordered_kmers = None
 
+
     def parse_genbank(self, gb, features = ["source", "CDS", "mRNA", "ncRNA"]):
         """It processes the Genbank (*.gb) and FASTA (*.fasta) files
         to extract the sequences. 
@@ -106,6 +108,7 @@ class Kmer():
         extract from *.gb files, the code must be changed accordingly.
 
         """
+
 
         feat_seqs = {}
         file_format = "genbank"
