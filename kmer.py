@@ -77,10 +77,10 @@ class Kmer():
 
         """
         if seqs is None:
-            self.seqs = []
+            self.biodata = []
             self.length_seqs = []
         else:
-            self.seqs = seqs
+            self.biodata = seqs
             self.length_seqs = length_seqs
         if corr not in ["P", "S", "T", "ALL"]:
             self.corr = input("Correlation functions: \n\n-Pearson (P) \
@@ -99,6 +99,7 @@ class Kmer():
         self.corr_matrix = None
         self.ordered_kmers = None
         self.only_sequences = []
+        self.id_labels = []
 
 
     def parse_genbank(self, gb, features = ["source", "CDS"]):
@@ -124,34 +125,27 @@ class Kmer():
                 feat_seqs[value] = []
 
         for record in SeqIO.parse(gb, "genbank"):
-            feat_seqs["ID"] = record.id
+            #feat_seqs["ID"] = record.id
             for feat in record.features:
                 if feat.type in features:
                     sequence = feat.location.extract(record).seq
                     feat_seqs[feat.type].append((sequence, len(sequence)))
                     self.length_seqs.append(len(sequence))
                     self.only_sequences.append(sequence)
+                    self.id_labels.append(record.id[:25] + "_{}".format(feat.type))
             
-            self.seqs.append(feat_seqs)
+            self.biodata.append(feat_seqs)
 
 
     def parse_fasta(self, fa):
 
         seq = {}
         for record in SeqIO.parse(fa, "fasta"):
-            seq["ID"] = record.id
             seq["source"] = ((record.seq).upper(), len(record))
             self.length_seqs.append(len(record))
             self.only_sequences.append(record.seq.upper())
-            
-            self.seqs.append(seq)
-
-        #self.length_seqs.append(len(seq))
-        #self.seqs.append(seq)
-        #names_taken.append(fil)
-
-        #self.filenames = [x for x in self.filenames if x in names_taken] # to have correspondence between
-                                                                         # name and its sequence
+            self.id_labels.append(record.id[:25] + "_source")
+            self.biodata.append(seq)
 
     def optimal_k(self, max_k=None):
         """ Given a range of k values, the variety of the extracted
@@ -168,10 +162,10 @@ class Kmer():
         if max_k is None:
             max_k = 8
 
-        richness = np.zeros((len(self.seqs), max_k - 1))
+        richness = np.zeros((len(self.biodata), max_k - 1))
         opt_k = {}
         k = 0
-        for ind, seq in enumerate(self.seqs):
+        for ind, seq in enumerate(self.biodata):
             for k in range(min_k, max_k):
                 pos = 0
                 end_pos = len(seq) - k + 1
@@ -219,10 +213,10 @@ class Kmer():
             self.all_w[index] = ''.join(items)
 
         print("Extracting words... ")
-        #self.count_kmers = [] #[[] for lists in range(len(self.seqs))]
+        #self.count_kmers = [] #[[] for lists in range(len(self.biodata))]
         self.ordered_kmers = [[] for lists in range(len(self.only_sequences))]
         #if not self.boot_switch:
-            #self.sample_size = [[] for lists in range(len(self.seqs))]
+            #self.sample_size = [[] for lists in range(len(self.biodata))]
         for index, sequence in enumerate(self.only_sequences):
             pos = 0
             end_pos = len(sequence) - self.k + 1
@@ -333,10 +327,10 @@ class Kmer():
             #corr_values = [[] for l in range(0,3)]
         else:
             stop = 1      #corr_values = []
-            theta_low[1], theta_up[1], corr_func[1] = ([mt.nan]*(len(self.seqs) - 1) for l in range(3))
-            theta_low[2], theta_up[2], corr_func[2] = ([mt.nan]*(len(self.seqs) - 1) for l in range(3))
+            theta_low[1], theta_up[1], corr_func[1] = ([mt.nan]*(len(self.biodata) - 1) for l in range(3))
+            theta_low[2], theta_up[2], corr_func[2] = ([mt.nan]*(len(self.biodata) - 1) for l in range(3))
         for x in range(0, 1):
-            for y in range(1, len(self.seqs)):
+            for y in range(1, len(self.biodata)):
                 corr_values = [[] for l in range(0, stop)]
                 n = 0
                 for n in range(0, B):
@@ -455,7 +449,7 @@ class Kmer():
         """
         self.binning = binning
         subseqs = []
-        for ind, ss in enumerate(self.seqs):
+        for ind, ss in enumerate(self.biodata):
             if ind == 0:
                 self.limit = len(ss) // binning
             i = 0
@@ -463,7 +457,7 @@ class Kmer():
                 sub = ss[i*binning:(i+1)*binning]
                 subseqs.append(sub)
                 i += 1
-        self.seqs = subseqs
+        self.biodata = subseqs
 
 
 
@@ -492,43 +486,14 @@ class Kmer():
 
 
 
-    def heatmap(self, matrix=np.array([])):
+    def heatmap(self, matrix=np.array([]), title="Heatmap", fout="out.png"):
         """It visualizes the matrix correlation values via heatmap.
         Each row represents a sequence as well as each column.
-        The labels present the sequences' names and, upon request, 
-        can be coloured based on the kingdom a sequence belongs. 
-        For this, each file name must start with an integer number 
-        plus underscore as the following:
-
-        Integer     Kingdom
-        -------     -------
-        0_          Animalia
-        1_          Archaea
-        2_          Bacteria
-        3_          Fungi
-        4_          Plantae
-        5_          Protista
-
+        The labels present the ids' names.
         """
+        
         if not matrix.any():
             matrix = self.corr_matrix
-
-        king_switch = input("Do you want labels based on kingdoms? [y/n]: ")
-        labels = []
-        palettes = []
-        colors = ["red", "purple", "blue", "gray", "green", "orange",]
-                 #Animalia, Archaea, Bacteria, Fungi, Plantae, Protista
-
-        for files in self.filenames:
-            if king_switch == "y":
-                palettes.append(colors[int(files[0])])
-                files = files[2:]
-            if files.endswith(".gb"):
-                namefile = files.replace(".gb", "")
-                labels.append(namefile)
-            elif files.endswith(".fasta"):
-                namefile = files.replace(".fasta", "")
-                labels.append(namefile)
 
         if self.corr == "ALL":
             stop = len(self.corr_matrix)
@@ -539,27 +504,14 @@ class Kmer():
             plt.clf()
             plt.figure()
             points = sns.heatmap(self.corr_matrix[ind], square=True, vmin=-1, vmax=1,
-                                 xticklabels=labels, yticklabels=labels, cmap="RdBu_r", linewidths=.1,
+                                 xticklabels=self.id_labels, yticklabels=self.id_labels, cmap="RdBu_r", linewidths=.1,
                                  cbar_kws={"ticks":[-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]}, fmt=".2f",
                                  annot=False, annot_kws={"size": 9})
             plt.xticks(rotation=90)
             plt.yticks(rotation=0)
-            red_patch = mpatches.Patch(color="red", label="Animalia")
-            purple_patch = mpatches.Patch(color="purple", label="Archaea")
-            blue_patch = mpatches.Patch(color="blue", label="Bacteria")
-            gray_patch = mpatches.Patch(color="gray", label="Fungi")
-            green_patch = mpatches.Patch(color="green", label="Plantae")
-            orange_patch = mpatches.Patch(color="orange", label="Protista")
-            #plt.legend(handles = [red_patch, purple_patch, blue_patch], loc = 3, bbox_to_anchor = (-0.4, -0.3))
             plt.tight_layout()
-            #plt.yticks(range(len(self.filenames)), labels)
-            if king_switch == "y":
-                for ind, label in enumerate(points.get_yticklabels()):
-                    label.set_color(palettes[::-1][ind])
-                for ind, label in enumerate(points.get_xticklabels()):
-                    label.set_color(palettes[ind])
-            plt.title("Set title")
-            plt.savefig("Namefile{}.png".format(ind), bbox_inches="tight")
+            plt.title(title)
+            plt.savefig(fout, bbox_inches="tight")
 
 
 
@@ -607,6 +559,7 @@ if __name__ == "__main__":
             quest.parse_genbank(full_path)
         elif ff.endswith("fasta"):
             quest.parse_fasta(full_path)
+    print(quest.biodata)
 
     #decision = input("Do you want to perform sKmer? [y/n] ")
     #if decision == "y":
