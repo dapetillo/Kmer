@@ -98,9 +98,10 @@ class Kmer():
         self.all_w = None
         self.corr_matrix = None
         self.ordered_kmers = None
+        self.only_sequences = []
 
 
-    def parse_genbank(self, gb, features = ["source", "CDS", "mRNA", "ncRNA"]):
+    def parse_genbank(self, gb, features = ["source", "CDS"]):
         """It processes the Genbank (*.gb) and FASTA (*.fasta) files
         to extract the sequences. 
 
@@ -126,7 +127,10 @@ class Kmer():
             feat_seqs["ID"] = record.id
             for feat in record.features:
                 if feat.type in features:
-                    feat_seqs[feat.type].append(feat.location.extract(record).seq)
+                    sequence = feat.location.extract(record).seq
+                    feat_seqs[feat.type].append((sequence, len(sequence)))
+                    self.length_seqs.append(len(sequence))
+                    self.only_sequences.append(sequence)
             
             self.seqs.append(feat_seqs)
 
@@ -136,7 +140,9 @@ class Kmer():
         seq = {}
         for record in SeqIO.parse(fa, "fasta"):
             seq["ID"] = record.id
-            seq["source"] = (record.seq).upper()
+            seq["source"] = ((record.seq).upper(), len(record))
+            self.length_seqs.append(len(record))
+            self.only_sequences.append(record.seq.upper())
             
             self.seqs.append(seq)
 
@@ -214,10 +220,10 @@ class Kmer():
 
         print("Extracting words... ")
         #self.count_kmers = [] #[[] for lists in range(len(self.seqs))]
-        self.ordered_kmers = [[] for lists in range(len(self.seqs))]
+        self.ordered_kmers = [[] for lists in range(len(self.only_sequences))]
         #if not self.boot_switch:
             #self.sample_size = [[] for lists in range(len(self.seqs))]
-        for index, sequence in enumerate(self.seqs):
+        for index, sequence in enumerate(self.only_sequences):
             pos = 0
             end_pos = len(sequence) - self.k + 1
             kmers = []
@@ -241,12 +247,12 @@ class Kmer():
         N((N-1)/2 + 1) values are calculated.
         
         """        
-        self.corr_matrix = [np.zeros((len(self.seqs), len(self.seqs))) for l in range(0, 3)]
+        self.corr_matrix = [np.zeros((len(self.only_sequences), len(self.only_sequences))) for l in range(0, 3)]
         x = 0
         print("Calculating correlations...")
-        for x in range(0, len(self.seqs)):
+        for x in range(0, len(self.only_sequences)):
             y = 0
-            for y in range(0, len(self.seqs)):
+            for y in range(0, len(self.only_sequences)):
                 if x >= y:
                     if self.corr == "S":
                         value = scipy.stats.spearmanr(self.ordered_kmers[x], self.ordered_kmers[y])[0]
@@ -601,17 +607,16 @@ if __name__ == "__main__":
             quest.parse_genbank(full_path)
         elif ff.endswith("fasta"):
             quest.parse_fasta(full_path)
-    print(quest.seqs)
-    sys.exit()
-    decision = input("Do you want to perform sKmer? [y/n] ")
-    if decision == "y":
-        quest.sKmer()
+
+    #decision = input("Do you want to perform sKmer? [y/n] ")
+    #if decision == "y":
+    #    quest.sKmer()
     quest.words_overlay()
     quest.correlations()
-    if decision == "y":
-        quest.heatmap_sKmer()
-    else:
-        quest.heatmap()
+    #if decision == "y":
+    #    quest.heatmap_sKmer()
+    #else:
+    quest.heatmap()
     #quest.bootstrapping_BCa()
     
                 
