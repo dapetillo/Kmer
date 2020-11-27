@@ -182,7 +182,7 @@ class Kmer():
                         richness[ind][k-1] += 1
             opt_k["{}".format(self.filenames[ind])] = np.argmax(richness[ind]) + 1
         
-        return opt_k 
+        return opt_k
 
     def words_overlay(self, k=None):
         """The method extracts the words from each sequence given
@@ -206,17 +206,15 @@ class Kmer():
                 logs += mt.log(n, 4)
             average_k = logs / len(self.length_seqs)
             print("Average k: %.2f" % average_k)
-            self.k = int(input("Choose words' length: "))
+            self.k = int(average_k)
 
         self.all_w = np.empty(4**self.k, dtype=object)
         for index, items in enumerate(itertools.product(self.alphabet, repeat=self.k)):
             self.all_w[index] = ''.join(items)
 
         print("Extracting words... ")
-        #self.count_kmers = [] #[[] for lists in range(len(self.biodata))]
         self.ordered_kmers = [[] for lists in range(len(self.only_sequences))]
-        #if not self.boot_switch:
-            #self.sample_size = [[] for lists in range(len(self.biodata))]
+
         for index, sequence in enumerate(self.only_sequences):
             pos = 0
             end_pos = len(sequence) - self.k + 1
@@ -503,10 +501,10 @@ class Kmer():
         for ind in range(0, stop):
             plt.clf()
             plt.figure()
-            points = sns.heatmap(self.corr_matrix[ind], square=True, vmin=-1, vmax=1,
-                                 xticklabels=self.id_labels, yticklabels=self.id_labels, cmap="RdBu_r", linewidths=.1,
-                                 cbar_kws={"ticks":[-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]}, fmt=".2f",
-                                 annot=False, annot_kws={"size": 9})
+            sns.heatmap(self.corr_matrix[ind], square=True, vmin=-1, vmax=1,
+                        xticklabels=self.id_labels, yticklabels=self.id_labels, cmap="RdBu_r", linewidths=.1,
+                        cbar_kws={"ticks":[-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]}, fmt=".2f",
+                        annot=False, annot_kws={"size": 9})
             plt.xticks(rotation=90)
             plt.yticks(rotation=0)
             plt.tight_layout()
@@ -559,17 +557,9 @@ if __name__ == "__main__":
             quest.parse_genbank(full_path)
         elif ff.endswith("fasta"):
             quest.parse_fasta(full_path)
-    print(quest.biodata)
 
-    #decision = input("Do you want to perform sKmer? [y/n] ")
-    #if decision == "y":
-    #    quest.sKmer()
     quest.words_overlay()
     quest.correlations()
-    #if decision == "y":
-    #    quest.heatmap_sKmer()
-    #else:
     quest.heatmap()
-    #quest.bootstrapping_BCa()
-    
+
                 
