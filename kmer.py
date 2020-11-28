@@ -11,10 +11,10 @@ import seaborn as sns
 from Bio import SeqIO
 import sys
 import configparser
+from data import Biodata
 
 
-
-class Kmer():
+class Kmer:
 
     """This class implements an alignment-free algorithm to correlate genetic sequences.
 
@@ -29,7 +29,7 @@ class Kmer():
 
     """
 
-    def __init__(self, seqs=None, length_seqs=None, corr=None, seq_dir="seqs"):
+    def __init__(self, seq_dict=None, corr=None):
         """It initializes the main attributes of the class.
 
         Attributes
@@ -76,76 +76,24 @@ class Kmer():
             sequence. The occurrences of each list are sorted by all_w.
 
         """
-        if seqs is None:
-            self.biodata = []
-            self.length_seqs = []
-        else:
-            self.biodata = seqs
-            self.length_seqs = length_seqs
+
+        if seq_dict is not None:
+            self.ids = seq_dict["IDs"]
+            self.sequences = seq_dict["sequences"]
+            self.length_seqs = [len(x) for x in self.sequences]
+       
         if corr not in ["P", "S", "T", "ALL"]:
             self.corr = input("Correlation functions: \n\n-Pearson (P) \
              \n-Spearman (S) \n-Kendall (T) \n-All (ALL) \n\nChoose one of them: ")
         else:
             self.corr = corr
-        if seq_dir is None:    
-            self.filenames = []
-        else:
-            self.filenames = os.listdir(seq_dir)
         
-        self.seq_dir = seq_dir
         self.alphabet = "ATCG"
         self.k = 0
         self.all_w = None
         self.corr_matrix = None
         self.ordered_kmers = None
-        self.only_sequences = []
-        self.id_labels = []
 
-
-    def parse_genbank(self, gb, features = ["source", "CDS"]):
-        """It processes the Genbank (*.gb) and FASTA (*.fasta) files
-        to extract the sequences. 
-
-        WARNING: depending on which and how many features one has to
-        extract from *.gb files, the code must be changed accordingly.
-
-        """
-
-
-        feat_seqs = {}
-        file_format = "genbank"
-        feat_parser = configparser.ConfigParser()
-        feat_parser.read("features.ini")
-
-        for element in features:
-            value = feat_parser[file_format].get(element)
-            if value is None:
-                raise ValueError("{} is an invalid feature for GenBank".format(element))
-            else:
-                feat_seqs[value] = []
-
-        for record in SeqIO.parse(gb, "genbank"):
-            #feat_seqs["ID"] = record.id
-            for feat in record.features:
-                if feat.type in features:
-                    sequence = feat.location.extract(record).seq
-                    feat_seqs[feat.type].append((sequence, len(sequence)))
-                    self.length_seqs.append(len(sequence))
-                    self.only_sequences.append(sequence)
-                    self.id_labels.append(record.id[:25] + "_{}".format(feat.type))
-            
-            self.biodata.append(feat_seqs)
-
-
-    def parse_fasta(self, fa):
-
-        seq = {}
-        for record in SeqIO.parse(fa, "fasta"):
-            seq["source"] = ((record.seq).upper(), len(record))
-            self.length_seqs.append(len(record))
-            self.only_sequences.append(record.seq.upper())
-            self.id_labels.append(record.id[:25] + "_source")
-            self.biodata.append(seq)
 
     def optimal_k(self, max_k=None):
         """ Given a range of k values, the variety of the extracted
@@ -162,10 +110,10 @@ class Kmer():
         if max_k is None:
             max_k = 8
 
-        richness = np.zeros((len(self.biodata), max_k - 1))
+        richness = np.zeros((len(self.sequences), max_k - 1))
         opt_k = {}
         k = 0
-        for ind, seq in enumerate(self.biodata):
+        for ind, seq in enumerate(self.sequences):
             for k in range(min_k, max_k):
                 pos = 0
                 end_pos = len(seq) - k + 1
@@ -180,7 +128,7 @@ class Kmer():
                 for values in counting.values():
                     if values >= 2:
                         richness[ind][k-1] += 1
-            opt_k["{}".format(self.filenames[ind])] = np.argmax(richness[ind]) + 1
+            opt_k["{}".format(self.ids[ind])] = np.argmax(richness[ind]) + 1
         
         return opt_k
 
@@ -213,9 +161,9 @@ class Kmer():
             self.all_w[index] = ''.join(items)
 
         print("Extracting words... ")
-        self.ordered_kmers = [[] for lists in range(len(self.only_sequences))]
+        self.ordered_kmers = [[] for lists in range(len(self.sequences))]
 
-        for index, sequence in enumerate(self.only_sequences):
+        for index, sequence in enumerate(self.sequences):
             pos = 0
             end_pos = len(sequence) - self.k + 1
             kmers = []
@@ -233,18 +181,19 @@ class Kmer():
 
 
 
+
     def correlations(self):
         """It correlates N sequences among each other using the words 
         occurrences. Given the symmetric nature of the corr. functions, only 
         N((N-1)/2 + 1) values are calculated.
         
         """        
-        self.corr_matrix = [np.zeros((len(self.only_sequences), len(self.only_sequences))) for l in range(0, 3)]
+        self.corr_matrix = [np.zeros((len(self.sequences), len(self.sequences))) for l in range(0, 3)]
         x = 0
         print("Calculating correlations...")
-        for x in range(0, len(self.only_sequences)):
+        for x in range(0, len(self.sequences)):
             y = 0
-            for y in range(0, len(self.only_sequences)):
+            for y in range(0, len(self.sequences)):
                 if x >= y:
                     if self.corr == "S":
                         value = scipy.stats.spearmanr(self.ordered_kmers[x], self.ordered_kmers[y])[0]
@@ -325,10 +274,10 @@ class Kmer():
             #corr_values = [[] for l in range(0,3)]
         else:
             stop = 1      #corr_values = []
-            theta_low[1], theta_up[1], corr_func[1] = ([mt.nan]*(len(self.biodata) - 1) for l in range(3))
-            theta_low[2], theta_up[2], corr_func[2] = ([mt.nan]*(len(self.biodata) - 1) for l in range(3))
+            theta_low[1], theta_up[1], corr_func[1] = ([mt.nan]*(len(self.sequences) - 1) for l in range(3))
+            theta_low[2], theta_up[2], corr_func[2] = ([mt.nan]*(len(self.sequences) - 1) for l in range(3))
         for x in range(0, 1):
-            for y in range(1, len(self.biodata)):
+            for y in range(1, len(self.sequences)):
                 corr_values = [[] for l in range(0, stop)]
                 n = 0
                 for n in range(0, B):
@@ -445,9 +394,10 @@ class Kmer():
         It defines the length of the subsequences.
         
         """
+
         self.binning = binning
         subseqs = []
-        for ind, ss in enumerate(self.biodata):
+        for ind, ss in enumerate(self.sequences):
             if ind == 0:
                 self.limit = len(ss) // binning
             i = 0
@@ -455,7 +405,8 @@ class Kmer():
                 sub = ss[i*binning:(i+1)*binning]
                 subseqs.append(sub)
                 i += 1
-        self.biodata = subseqs
+        self.sequences = subseqs
+
 
 
 
@@ -502,7 +453,7 @@ class Kmer():
             plt.clf()
             plt.figure()
             sns.heatmap(self.corr_matrix[ind], square=True, vmin=-1, vmax=1,
-                        xticklabels=self.id_labels, yticklabels=self.id_labels, cmap="RdBu_r", linewidths=.1,
+                        xticklabels=self.ids, yticklabels=self.ids, cmap="RdBu_r", linewidths=.1,
                         cbar_kws={"ticks":[-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]}, fmt=".2f",
                         annot=False, annot_kws={"size": 9})
             plt.xticks(rotation=90)
@@ -549,17 +500,12 @@ class Kmer():
 
 if __name__ == "__main__":
 
-    quest = Kmer(corr="P", seq_dir="test_seqs")
-    filenames = os.listdir("test_seqs")
-    for ff in filenames:
-        full_path = os.path.abspath(os.path.join("test_seqs", ff))
-        if ff.endswith("gb"):
-            quest.parse_genbank(full_path)
-        elif ff.endswith("fasta"):
-            quest.parse_fasta(full_path)
-
+    bdata = Biodata(seq_dir="test_seqs")
+    bdata.load_as_dict()
+    quest = Kmer(corr="P", seq_dict=bdata.biodata)
     quest.words_overlay()
     quest.correlations()
     quest.heatmap()
+
 
                 
