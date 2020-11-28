@@ -12,6 +12,7 @@ from Bio import SeqIO
 import sys
 import configparser
 from data import Biodata
+from analysis import Analysis
 
 
 class Kmer:
@@ -178,52 +179,6 @@ class Kmer:
                 self.ordered_kmers[index].append(unordered_dic_kmers[key])
 
         print("Words analysis completed.\n")
-
-
-
-
-    def correlations(self):
-        """It correlates N sequences among each other using the words 
-        occurrences. Given the symmetric nature of the corr. functions, only 
-        N((N-1)/2 + 1) values are calculated.
-        
-        """        
-        self.corr_matrix = [np.zeros((len(self.sequences), len(self.sequences))) for l in range(0, 3)]
-        x = 0
-        print("Calculating correlations...")
-        for x in range(0, len(self.sequences)):
-            y = 0
-            for y in range(0, len(self.sequences)):
-                if x >= y:
-                    if self.corr == "S":
-                        value = scipy.stats.spearmanr(self.ordered_kmers[x], self.ordered_kmers[y])[0]
-                        self.corr_matrix[len(self.corr) - 1][x][y] = value
-                    elif self.corr == "T":
-                        value = scipy.stats.kendalltau(self.ordered_kmers[x], self.ordered_kmers[y])[0]
-                        self.corr_matrix[len(self.corr) - 1][x][y] = value
-                    elif self.corr == "P":
-                        value = scipy.stats.pearsonr(self.ordered_kmers[x], self.ordered_kmers[y])[0]
-                        self.corr_matrix[len(self.corr) - 1][x][y] = value
-                    else:
-                        spearm = scipy.stats.spearmanr(self.ordered_kmers[x], self.ordered_kmers[y])[0]
-                        tau = scipy.stats.kendalltau(self.ordered_kmers[x], self.ordered_kmers[y])[0]
-                        pears = scipy.stats.pearsonr(self.ordered_kmers[x], self.ordered_kmers[y])[0]
-                        corr = [spearm, tau, pears]
-                        for index, corrs in enumerate(corr):
-                            self.corr_matrix[index][x][y] = corrs
-                else:
-                    break
-
-        if self.corr == "ALL":
-            stop = len(self.corr_matrix)
-        else:
-            stop = 1
-        for ind in range(0, stop):
-            self.corr_matrix[ind] = self.corr_matrix[ind] + self.corr_matrix[ind].T - np.diag(
-                self.corr_matrix[ind].diagonal())  #it fills the rest of the array (symmetry)
-
-
-        print("Done.\n")
 
 
     def bootstrapping_BCa(self, alpha=0.04549, tolerance=10, B=10, BCa=True):
@@ -504,7 +459,10 @@ if __name__ == "__main__":
     bdata.load_as_dict()
     quest = Kmer(corr="P", seq_dict=bdata.biodata)
     quest.words_overlay()
-    quest.correlations()
+    ans = Analysis(quest.ordered_kmers)
+    corr = ans.correlation_matrix(len(quest.sequences))
+    print(corr)
+    sys.exit()
     quest.heatmap()
 
 
