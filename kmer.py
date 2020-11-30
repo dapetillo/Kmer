@@ -391,43 +391,16 @@ class Kmer:
 
 
 
-    def heatmap(self, matrix=np.array([]), title="Heatmap", fout="out.png"):
-        """It visualizes the matrix correlation values via heatmap.
-        Each row represents a sequence as well as each column.
-        The labels present the ids' names.
-        """
-        
-        #if not matrix.any():
-        #    matrix = self.corr_matrix
-        self.corr_matrix = matrix
-        if self.corr == "ALL":
-            stop = len(self.corr_matrix)
-        else:
-            stop = 1
-
-        for ind in range(0, stop):
-            plt.clf()
-            plt.figure()
-            sns.heatmap(self.corr_matrix[ind], square=True, vmin=-1, vmax=1,
-                        xticklabels=self.ids, yticklabels=self.ids, cmap="RdBu_r", linewidths=.1,
-                        cbar_kws={"ticks":[-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]}, fmt=".2f",
-                        annot=False, annot_kws={"size": 9})
-            plt.xticks(rotation=90)
-            plt.yticks(rotation=0)
-            plt.tight_layout()
-            plt.title(title)
-            plt.savefig(fout, bbox_inches="tight")
-
-
 if __name__ == "__main__":
 
-    bdata = Biodata(seq_dir="test_skmer", gb_features=["source"])
+    bdata = Biodata(seq_dir="test_seqs", gb_features=["source"])
     bdata.load_as_dict()
     quest = Kmer(corr="P", seq_dict=bdata.biodata)
-    cut = quest.sKmer(binning=100)
+    #cut = quest.sKmer(binning=100)
     quest.words_overlay()
     ans = Analysis(quest.ordered_kmers)
     corr_matrix = ans.correlation_matrix(len(quest.sequences), correlation=["P"])
     vis = Visualization(k=quest.k)
-    vis.heatmap_sKmer(corr_matrix, cut)
+    vis.heatmap(corr_matrix, quest.ids)
+    #vis.heatmap_sKmer(corr_matrix, cut)
 

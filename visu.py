@@ -7,8 +7,8 @@ class Visualization:
     def __init__(self, k, save=True, fout="out.png"):
         self.k = k
 
-    
-    def heatmap(self, corr_matrix, title="Heatmap", fout="out.png"):
+
+    def heatmap(self, corr_matrix, ids, title="Heatmap", fout="out.png"):
         """It visualizes the matrix correlation values via heatmap.
         Each row represents a sequence as well as each column.
         The labels present the ids' names.
@@ -18,7 +18,7 @@ class Visualization:
             plt.clf()
             plt.figure()
             sns.heatmap(corr_matrix[ind], square=True, vmin=-1, vmax=1,
-                        xticklabels=self.ids, yticklabels=self.ids,
+                        xticklabels=ids, yticklabels=ids,
                         cmap="RdBu_r", linewidths=.1,
                         cbar_kws={"ticks": [-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]},
                         fmt=".2f", annot=False, annot_kws={"size": 9})
