@@ -13,6 +13,7 @@ import sys
 import configparser
 from data import Biodata
 from analysis import Analysis
+from visu import Visualization
 
 
 class Kmer:
@@ -354,18 +355,16 @@ class Kmer:
 
         self.binning = binning
         subseqs = []
-        for ind, ss in enumerate(self.sequences):
-            if ind == 0:
-                self.limit = len(ss) // binning
+        cut = len(self.sequences[0]) // binning
+        for ss in self.sequences:
             i = 0
             while i < len(ss) // binning:
                 sub = ss[i*binning:(i+1)*binning]
                 subseqs.append(sub)
                 i += 1
+        
         self.sequences = subseqs
-
-
-
+        return cut
 
 
     def histogram(self):
@@ -420,47 +419,15 @@ class Kmer:
             plt.savefig(fout, bbox_inches="tight")
 
 
-
-    def heatmap_sKmer(self):
-        """ It visualizes the matrix correlation values via heatmap when
-        sKmer is applied. Each row represents the subsequences of a sequence Y
-        while each column represents the subsequences of a sequence X.
-
-        """
-        if self.corr == "ALL":
-            stop = len(self.corr_matrix)
-            name_corr = ["Spearman", "Kendall", "Pearson"]
-        else:
-            stop = 1
-            name_corr = [self.corr]
-        for ind in range(0, stop):
-            plt.clf()
-            fig = plt.figure()
-            ax = fig.add_subplot(111)
-            sns.heatmap(self.corr_matrix[ind][0:self.limit, self.limit:],
-                        square=True, vmin=-1, vmax=1, cmap="RdBu_r", linewidths=.1,
-                        cbar_kws={"ticks":[-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]},
-                        fmt=".2f", annot=False, xticklabels=10, yticklabels=10,
-                        annot_kws={"size": 9})
-            ax.plot([0, ax.get_ylim()[1]], [ax.get_ylim()[1], 0], ls="--", color=".3",
-                    linewidth=1.)
-
-            plt.title("sKmer - {} corr. for k = {} and bin = {} bp".format(
-                      name_corr[ind], self.k, self.binning))
-            plt.xlabel("Subsequences X [(x+1)*{} bp]".format(self.binning))
-            plt.ylabel("Subsequences Y [(y+1)*{} bp]".format(self.binning))
-            plt.savefig("Namefile{}.png".format(ind), bbox_inches="tight")
-            #plt.pause(0.001)
-            #plt.close()
-
-
-
 if __name__ == "__main__":
 
-    bdata = Biodata(seq_dir="test_seqs")
+    bdata = Biodata(seq_dir="test_skmer", gb_features=["source"])
     bdata.load_as_dict()
     quest = Kmer(corr="P", seq_dict=bdata.biodata)
+    cut = quest.sKmer(binning=100)
     quest.words_overlay()
     ans = Analysis(quest.ordered_kmers)
-    corr = ans.correlation_matrix(len(quest.sequences), correlation=["P"])
-    quest.heatmap(corr)
+    corr_matrix = ans.correlation_matrix(len(quest.sequences), correlation=["P"])
+    vis = Visualization(k=quest.k)
+    vis.heatmap_sKmer(corr_matrix, cut)
+
