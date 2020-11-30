@@ -14,6 +14,7 @@ import configparser
 from data import Biodata
 from analysis import Analysis
 from visu import Visualization
+import generic
 
 
 class Kmer:
@@ -92,9 +93,9 @@ class Kmer:
         
         self.alphabet = "ATCG"
         self.k = 0
-        self.all_w = None
         self.corr_matrix = None
         self.ordered_kmers = None
+    
 
 
     def optimal_k(self, max_k=None):
@@ -159,10 +160,7 @@ class Kmer:
             self.k = int(average_k)
 
 
-        self.all_w = {}
-        for index, items in enumerate(itertools.product(self.alphabet, repeat=self.k)):
-            self.all_w[''.join(items)] = 0
-
+        kmers_words = generic.generate_words(self.k, self.alphabet)
 
         print("Extracting words... ")
         self.ordered_kmers = [{} for x in range(len(self.sequences))]
@@ -177,8 +175,8 @@ class Kmer:
                 else:
                     kmers.append(str(sub))
             unordered_dic_kmers = collections.Counter(kmers)
-            for key, _ in self.all_w.items():
-                self.ordered_kmers[index][key] = unordered_dic_kmers[key]
+            for word in kmers_words:
+                self.ordered_kmers[index][word] = unordered_dic_kmers[word]
 
 
         print("Words analysis completed.\n")
@@ -213,29 +211,6 @@ class Kmer:
         return cut
 
 
-    def histogram(self):
-        """It saves/shows the words distribution for a sequence.
-        The words extraction must be performed before to call the
-        method.
-
-        """
-        words = np.arange(4**self.k)
-        occurr = self.ordered_kmers
-
-        for ind in range(0, len(occurr)):
-
-            occurr[ind] = [x / sum(occurr[ind]) for x in occurr[ind]]
-            plt.clf()
-            plt.bar(words, occurr[ind], align="center")
-            plt.xticks(words, self.all_w, rotation="vertical")
-            plt.title("Set title")
-            plt.xlabel("Words")
-            plt.ylabel("Frequencies")
-            plt.savefig("Namefile{}.png".format(ind), bbox_inches="tight")
-            #plt.close()
-            #plt.show()
-
-
 
 if __name__ == "__main__":
 
@@ -247,6 +222,7 @@ if __name__ == "__main__":
     ans = Analysis(quest.ordered_kmers)
     corr_matrix = ans.correlation_matrix(len(quest.sequences), correlation=["P"])
     vis = Visualization(k=quest.k)
-    vis.heatmap(corr_matrix, quest.ids)
+    #vis.heatmap(corr_matrix, quest.ids)
+    vis.histogram(quest.ordered_kmers)
     #vis.heatmap_sKmer(corr_matrix, cut)
 

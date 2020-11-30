@@ -1,11 +1,33 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import generic
 
 class Visualization:
 
     def __init__(self, k, save=True, fout="out.png"):
         self.k = k
+
+
+
+    def histogram(self, kmers, alphabet="ATCG"):
+
+        kmers = generic.unpack_kmers(kmers)
+        kmers_words = generic.generate_words(self.k, alphabet)
+        
+        number_of_words = np.arange(4**self.k)
+        for ind in range(0, len(kmers)):
+
+            kmers[ind] = [x / sum(kmers[ind]) for x in kmers[ind]]
+            plt.clf()
+            plt.bar(number_of_words, kmers[ind], align="center")
+            plt.xticks(number_of_words, kmers_words, rotation="vertical")
+            plt.title("Set title")
+            plt.xlabel("Words")
+            plt.ylabel("Frequencies")
+            plt.savefig("Namefile{}.png".format(ind), bbox_inches="tight")
+
+
 
 
     def heatmap(self, corr_matrix, ids, title="Heatmap", fout="out.png"):
