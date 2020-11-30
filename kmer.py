@@ -157,13 +157,14 @@ class Kmer:
             print("Average k: %.2f" % average_k)
             self.k = int(average_k)
 
-        self.all_w = np.empty(4**self.k, dtype=object)
+
+        self.all_w = {}
         for index, items in enumerate(itertools.product(self.alphabet, repeat=self.k)):
-            self.all_w[index] = ''.join(items)
+            self.all_w[''.join(items)] = 0
+
 
         print("Extracting words... ")
-        self.ordered_kmers = [[] for lists in range(len(self.sequences))]
-
+        self.ordered_kmers = [{} for x in range(len(self.sequences))]
         for index, sequence in enumerate(self.sequences):
             pos = 0
             end_pos = len(sequence) - self.k + 1
@@ -175,8 +176,9 @@ class Kmer:
                 else:
                     kmers.append(str(sub))
             unordered_dic_kmers = collections.Counter(kmers)
-            for key in self.all_w:
-                self.ordered_kmers[index].append(unordered_dic_kmers[key])
+            for key, _ in self.all_w.items():
+                self.ordered_kmers[index][key] = unordered_dic_kmers[key]
+
 
         print("Words analysis completed.\n")
 
@@ -396,9 +398,9 @@ class Kmer:
         The labels present the ids' names.
         """
         
-        if not matrix.any():
-            matrix = self.corr_matrix
-
+        #if not matrix.any():
+        #    matrix = self.corr_matrix
+        self.corr_matrix = matrix
         if self.corr == "ALL":
             stop = len(self.corr_matrix)
         else:
@@ -460,10 +462,5 @@ if __name__ == "__main__":
     quest = Kmer(corr="P", seq_dict=bdata.biodata)
     quest.words_overlay()
     ans = Analysis(quest.ordered_kmers)
-    corr = ans.correlation_matrix(len(quest.sequences))
-    print(corr)
-    sys.exit()
-    quest.heatmap()
-
-
-                
+    corr = ans.correlation_matrix(len(quest.sequences), correlation=["P"])
+    quest.heatmap(corr)

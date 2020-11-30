@@ -4,7 +4,10 @@ import numpy as np
 class Analysis:
 
     def __init__(self, kmers):
-        self.kmers = kmers
+        if all(isinstance(d, dict) for d in kmers):
+            self.kmers = [list(d_kmers.values()) for d_kmers in kmers]
+        elif all(isinstance(l, list) for l in kmers):
+            self.kmers = kmers
 
 
     def correlation_matrix(self, matrix_size=None, correlation=["P", "S", "T"]):
