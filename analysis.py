@@ -1,11 +1,11 @@
 import scipy.stats
 import numpy as np
-import generic
+import kmerutils
 
 class Analysis:
 
     def __init__(self, kmers):
-        self.kmers = generic.unpack_kmers(kmers)
+        self.kmers = kmerutils.unpack_kmers(kmers)
 
 
     def correlation_matrix(self, matrix_size=None, correlation=["P", "S", "T"]):

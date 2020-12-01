@@ -14,7 +14,7 @@ import configparser
 from data import Biodata
 from analysis import Analysis
 from visu import Visualization
-import generic
+import kmerutils
 
 
 class Kmer:
@@ -158,7 +158,7 @@ class Kmer:
             self.k = int(average_k)
 
 
-        kmers_words = generic.generate_words(self.k, self.alphabet)
+        kmers_words = kmerutils.generate_words(self.k, self.alphabet)
 
         print("Extracting words... ")
         self.ordered_kmers = [{} for x in range(len(self.sequences))]
@@ -180,8 +180,14 @@ class Kmer:
         print("Words analysis completed.\n")
 
 
+class subKmer(Kmer):
 
-    def sKmer(self, binning=100):
+    def __init__(self, seq_dict=None, seq_dir=None, binning=100):
+        self.binning = binning
+        super().__init__(seq_dict, seq_dir)
+
+    
+    def sKmer(self):
         """This method cut sequences in subsequences: it is used when
         the user wants to look for local changes in a sequence. The
         method should be called before to perform any words extraction
@@ -195,13 +201,12 @@ class Kmer:
         
         """
 
-        self.binning = binning
         subseqs = []
-        cut = len(self.sequences[0]) // binning
+        cut = len(self.sequences[0]) // self.binning
         for ss in self.sequences:
             i = 0
-            while i < len(ss) // binning:
-                sub = ss[i*binning:(i+1)*binning]
+            while i < len(ss) // self.binning:
+                sub = ss[i*self.binning:(i+1)*self.binning]
                 subseqs.append(sub)
                 i += 1
         
@@ -213,12 +218,9 @@ class Kmer:
 if __name__ == "__main__":
 
     quest = Kmer(seq_dir="test_seqs")
-    #cut = quest.sKmer(binning=100)
     quest.words_overlay()
     ans = Analysis(quest.ordered_kmers)
     corr_matrix = ans.correlation_matrix(len(quest.sequences), correlation=["P"])
     vis = Visualization(k=quest.k)
     vis.heatmap(corr_matrix, quest.ids)
-    #vis.histogram(quest.ordered_kmers)
-    #vis.heatmap_sKmer(corr_matrix, cut)
-
+    vis.histogram(quest.ordered_kmers)

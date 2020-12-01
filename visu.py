@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import generic
+import kmerutils
 
 class Visualization:
 
@@ -9,11 +9,10 @@ class Visualization:
         self.k = k
 
 
-
     def histogram(self, kmers, alphabet="ATCG"):
 
-        kmers = generic.unpack_kmers(kmers)
-        kmers_words = generic.generate_words(self.k, alphabet)
+        kmers = kmerutils.unpack_kmers(kmers)
+        kmers_words = kmerutils.generate_words(self.k, alphabet)
         
         number_of_words = np.arange(4**self.k)
         for ind in range(0, len(kmers)):
@@ -28,21 +27,22 @@ class Visualization:
             plt.savefig("Namefile{}.png".format(ind), bbox_inches="tight")
 
 
-
-
     def heatmap(self, corr_matrix, ids, title="Heatmap", fout="out.png"):
         """It visualizes the matrix correlation values via heatmap.
         Each row represents a sequence as well as each column.
         The labels present the ids' names.
         """
 
+
         for ind in range(0, len(corr_matrix)):
+            mask = np.zeros_like(corr_matrix[0], dtype=np.bool)
+            mask[np.triu_indices_from(mask)] = True
             plt.clf()
             plt.figure()
-            sns.heatmap(corr_matrix[ind], square=True, vmin=-1, vmax=1,
+            sns.heatmap(corr_matrix[ind], mask=mask, square=True, vmin=-1, vmax=1,
                         xticklabels=ids, yticklabels=ids,
                         cmap="RdBu_r", linewidths=.1,
-                        cbar_kws={"ticks": [-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]},
+                        cbar_kws={"ticks": np.arange(-1, 1.25, 0.25)},
                         fmt=".2f", annot=False, annot_kws={"size": 9})
             plt.xticks(rotation=90)
             plt.yticks(rotation=0)
@@ -64,7 +64,7 @@ class Visualization:
             ax = fig.add_subplot(111)
             sns.heatmap(corr_matrix[ind][0:cut, cut:],
                         square=True, vmin=-1, vmax=1, cmap="RdBu_r", linewidths=.1,
-                        cbar_kws={"ticks":[-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]},
+                        cbar_kws={"ticks": np.arange(-1, 1.25, 0.25)},
                         fmt=".2f", annot=False, xticklabels=10, yticklabels=10,
                         annot_kws={"size": 9})
             ax.plot([0, ax.get_ylim()[0]], [0, ax.get_ylim()[0]], ls="--", color=".3",
