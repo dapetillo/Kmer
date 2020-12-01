@@ -20,23 +20,22 @@ class Analysis:
                        for l in range(0, len(correlation))]
         print("Calculating correlations...")
         for x in range(0, matrix_size):
-            for y in range(0, matrix_size):
-                if x >= y:
-                    index_step = 0
-                    if "S" in correlation:
-                        value = scipy.stats.spearmanr(self.kmers[x], self.kmers[y])[0]
-                        corr_matrix[index_step][x][y] = value
-                        index_step += 1
-                    if "T" in correlation:
-                        value = scipy.stats.kendalltau(self.kmers[x], self.kmers[y])[0]
-                        corr_matrix[index_step][x][y] = value
-                        index_step += 1
-                    if "P" in correlation:
-                        value = scipy.stats.pearsonr(self.kmers[x], self.kmers[y])[0]
-                        corr_matrix[index_step][x][y] = value
-                else:
-                    break
-        
+            y = 0
+            while x >= y:
+                index_step = 0
+                if "S" in correlation:
+                    value = scipy.stats.spearmanr(self.kmers[x], self.kmers[y])[0]
+                    corr_matrix[index_step][x][y] = value
+                    index_step += 1
+                if "T" in correlation:
+                    value = scipy.stats.kendalltau(self.kmers[x], self.kmers[y])[0]
+                    corr_matrix[index_step][x][y] = value
+                    index_step += 1
+                if "P" in correlation:
+                    value = scipy.stats.pearsonr(self.kmers[x], self.kmers[y])[0]
+                    corr_matrix[index_step][x][y] = value
+                y += 1
+
         # fills the other half of the matrix (symmetry)
         for ind in range(0, len(correlation)):
             corr_matrix[ind] = (corr_matrix[ind] + corr_matrix[ind].T

@@ -6,7 +6,7 @@ import configparser
 
 class Biodata:
 
-    def __init__(self, gb_features=["source", "CDS"], seq_dir=None):
+    def __init__(self, seq_dir=None, gb_features=["source", "CDS"]):
 
         feat_parser = configparser.ConfigParser()
         feat_parser.read("features.ini")
@@ -74,9 +74,11 @@ class Biodata:
             self.biodata["IDs"] += ids
             self.biodata["features"] += feats
             self.biodata["sequences"] += seqs
+        
+        return self.biodata
 
 
 if __name__ == "__main__":
     bdata = Biodata(seq_dir="test_seqs")
-    bdata.load_as_dict()
-    print(bdata.biodata)
+    bdata = bdata.load_as_dict()
+    print(bdata)

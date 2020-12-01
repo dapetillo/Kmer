@@ -32,7 +32,7 @@ class Kmer:
 
     """
 
-    def __init__(self, seq_dict=None, corr=None):
+    def __init__(self, seq_dict=None, seq_dir=None):
         """It initializes the main attributes of the class.
 
         Attributes
@@ -80,16 +80,14 @@ class Kmer:
 
         """
 
-        if seq_dict is not None:
-            self.ids = seq_dict["IDs"]
-            self.sequences = seq_dict["sequences"]
-            self.length_seqs = [len(x) for x in self.sequences]
-       
-        if corr not in ["P", "S", "T", "ALL"]:
-            self.corr = input("Correlation functions: \n\n-Pearson (P) \
-             \n-Spearman (S) \n-Kendall (T) \n-All (ALL) \n\nChoose one of them: ")
-        else:
-            self.corr = corr
+        if seq_dir:
+            seq_dict = Biodata(seq_dir)
+            seq_dict = seq_dict.load_as_dict()
+
+        self.ids = seq_dict["IDs"]
+        self.sequences = seq_dict["sequences"]
+        self.length_seqs = [len(x) for x in self.sequences]
+
         
         self.alphabet = "ATCG"
         self.k = 0
@@ -214,15 +212,13 @@ class Kmer:
 
 if __name__ == "__main__":
 
-    bdata = Biodata(seq_dir="test_seqs", gb_features=["source"])
-    bdata.load_as_dict()
-    quest = Kmer(corr="P", seq_dict=bdata.biodata)
+    quest = Kmer(seq_dir="test_seqs")
     #cut = quest.sKmer(binning=100)
     quest.words_overlay()
     ans = Analysis(quest.ordered_kmers)
     corr_matrix = ans.correlation_matrix(len(quest.sequences), correlation=["P"])
     vis = Visualization(k=quest.k)
-    #vis.heatmap(corr_matrix, quest.ids)
-    vis.histogram(quest.ordered_kmers)
+    vis.heatmap(corr_matrix, quest.ids)
+    #vis.histogram(quest.ordered_kmers)
     #vis.heatmap_sKmer(corr_matrix, cut)
 
