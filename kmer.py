@@ -91,7 +91,6 @@ class Kmer:
         
         self.alphabet = "ATCG"
         self.k = 0
-        self.corr_matrix = None
         self.ordered_kmers = None
     
 
