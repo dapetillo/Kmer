@@ -112,7 +112,7 @@ class Kmer:
         Parameters
         ----------
         k : int
-        A parameter used to define the lenght of a kmer word.
+        A parameter used to define the length of a kmer word.
         """
 
         if k is None:
@@ -151,22 +151,36 @@ class Kmer:
 class subKmer(Kmer):
 
     def __init__(self, seq_dict=None, seq_dir=None, binning=100):
+        """A class to cut two genetic sequences into subsequences
+        for further operations.
+
+        Parameters
+        ----------
+        seq_dict : dict
+            Dictionary with sequences' info and the sequences
+            themselves.
+        seq_dir : str
+            Relative path to sequences' folder.
+        binning : int
+            Defines the length of a subsequence in base pairs [bp].
+        
+        Attributes
+        ----------
+        binning : int
+            Defines the length of a subsequence in base pairs [bp].
+        """
         self.binning = binning
         super().__init__(seq_dict, seq_dir)
 
     
     def sKmer(self):
-        """This method cut sequences in subsequences: it is used when
-        the user wants to look for local changes in a sequence. The
-        method should be called before to perform any words extraction
-        as well as correlation calculation. The subsequences get stored
-        in the seqs attribute.
+        """It cuts the sequences into subsequences based on
+        `binning`.
 
-        Parameters
-        ----------
-        binning: 'int'
-        It defines the length of the subsequences.
-        
+        Returns
+        -------
+        cut : int
+            Integer necessary to plot the sKmer heatmap.
         """
 
         subseqs = []

@@ -5,17 +5,40 @@ import kmerutils
 class Analysis:
 
     def __init__(self, kmers):
+        """A class to perform statistical analyses on sequences
+        manipulated with alignment-free algorithms.
+
+        Parameters
+        ----------
+        kmers : list or list of dicts
+            List of kmer words occurrences of list of dictionaries
+            containing the occurrences.
+        """
+
         self.kmers = kmerutils.unpack_kmers(kmers)
 
 
-    def correlation_matrix(self, matrix_size=None, correlation=["P", "S", "T"]):
-        """It correlates N sequences among each other using the words
-        occurrences. Given the symmetric nature of the corr. functions, only
-        N((N-1)/2 + 1) values are calculated.
+    def correlation_matrix(self, matrix_size, correlation=["P", "S", "T"]):
+        """It correlates N sequences among each other using kmer words
+        occurrences.
 
+        Parameters
+        ----------
+        matrix_size : int
+            Size of the correlation matrix.
+        correlation : list of str
+            List of correlations to calculate. Current correlations
+            supported:
+            - "P": Pearson
+            - "S": Spearman
+            - "T": Kendall's tau
+        
+        Returns
+        -------
+        corr_matrix : list of (2,) ndarray
+            Each element in list is a correlation matrix among sequences.
         """
-        if matrix_size is None:
-            raise TypeError("Matrix size not specified!")
+
         corr_matrix = [np.zeros((matrix_size, matrix_size)) 
                        for l in range(0, len(correlation))]
         print("Calculating correlations...")
