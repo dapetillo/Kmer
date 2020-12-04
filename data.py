@@ -6,6 +6,27 @@ import configparser
 class Biodata:
 
     def __init__(self, seq_dir=None, gb_features=["source", "CDS"]):
+        """A class to read sequences from different file formats and
+        corresponding metadata.
+
+        Parameters
+        ----------
+        seq_dir : str
+            Relative path to folder's sequences
+        gb_features : list of str
+            List of features to read from GenBank files. A list of
+            supported features can be found in **features.ini**
+        
+        Attributes
+        ----------
+        gb_features : list of str
+            List of features to read from GenBank files. A list of
+            supported features can be found in **features.ini**
+        full_fname : list of str
+            Absolute path to files' sequences
+        biodata : dict
+            It stores sequences and metadata.
+        """
 
         feat_parser = configparser.ConfigParser()
         feat_parser.read("features.ini")
@@ -25,6 +46,24 @@ class Biodata:
     
 
     def parse_genbank(self, gb):
+        """It parses GenBank files based on features.
+
+        Parameters
+        ----------
+        gb : str
+            Absolute path to Genbank file.
+        
+
+        Returns
+        -------
+        ids : list of str
+            IDs of the sequences.
+        feats : list of str
+            Features' names of the sequences.
+        seqs : list of Seq objects
+            The sequences themselves.
+        """
+    
         feat_parser = configparser.ConfigParser()
         feat_parser.read("features.ini")
         ids = []
@@ -45,7 +84,24 @@ class Biodata:
         return (ids, feats, seqs)
 
     def parse_fasta(self, fa, acc_version="NC_"):
+        """It parses GenBank files based on features.
 
+        Parameters
+        ----------
+        fa : str
+            Absolute path to FASTA file.
+        acc_version : str
+            Identifier to parse ID from FASTA file.
+
+        Returns
+        -------
+        ids : list of str
+            IDs of the sequences.
+        feats : list of str
+            Features' names of the sequences.
+        seqs : list of Seq objects
+            The sequences themselves.
+        """
         ids = []
         feats = []
         seqs = []
@@ -62,6 +118,20 @@ class Biodata:
         return (ids, feats, seqs)
 
     def load_as_dict(self):
+        """Calls parsing functions and collects output
+        into dictionary.
+
+        Returns
+        -------
+        biodata : dict
+            It stores sequences and metadata.
+
+        Raises
+        ------
+        ValueError
+            If file format not supported.
+        """
+
         for name in self.full_fname:
             if name.endswith((".gb", ".genbank")):
                 ids, feats, seqs = self.parse_genbank(name)

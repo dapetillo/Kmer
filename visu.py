@@ -5,11 +5,38 @@ import kmerutils
 
 class Visualization:
 
-    def __init__(self, k, save=True, fout="out.png"):
+    def __init__(self, k, save=True):
+        """A class to visualize results from alignment-free
+        algorithms.
+
+        Parameters
+        ----------
+        k : int
+            A parameter used to define the length of a kmer word.
+        save : bool
+            Whether save a result to file.
+        
+        Attributes
+        ----------
+        k : int
+            A parameter used to define the length of a kmer word.
+        """
         self.k = k
 
 
     def histogram(self, kmers, alphabet="ATCG"):
+        """Builds the histogram of kmer words for a sequence.
+
+        Parameters
+        ----------
+        kmers : list of dicts
+            Each dictionary in the list is structured as:
+            `key`: kmer word
+            `value`: # of occurrences for `key`
+            Also, each dictionary corresponds to a unique sequence.
+        alphabet : str
+            Genetic alphabet. Only "ATCG" supported.
+        """
 
         kmers = kmerutils.unpack_kmers(kmers)
         kmers_words = kmerutils.generate_words(self.k, alphabet)
@@ -28,12 +55,20 @@ class Visualization:
 
 
     def heatmap(self, corr_matrix, ids, title="Heatmap", fout="out.png"):
-        """It visualizes the matrix correlation values via heatmap.
-        Each row represents a sequence as well as each column.
-        The labels present the ids' names.
+        """Builds the heatmap of a correlation matrix.
+        
+        Parameters
+        ----------
+        corr_matrix : list of (2,) ndarray
+            Each element in list is a correlation matrix among sequences.
+        ids : list
+            List of IDs' sequences.
+        title : str
+            Heatmap's title.
+        fout : str
+            Output namefile.
         """
-
-
+    
         for ind in range(0, len(corr_matrix)):
             mask = np.zeros_like(corr_matrix[0], dtype=np.bool)
             mask[np.triu_indices_from(mask)] = True
@@ -52,10 +87,19 @@ class Visualization:
 
 
     def heatmap_sKmer(self, corr_matrix, cut, binning=100):
-        """ It visualizes the matrix correlation values via heatmap when
-        sKmer is applied. Each row represents the subsequences of a sequence Y
+        """ Builds the heatmap of a correlation matrix.
+        Each row represents the subsequences of a sequence Y
         while each column represents the subsequences of a sequence X.
 
+        Parameters
+        ----------
+        corr_matrix : list of (2,) ndarray
+            Each element in list is a correlation matrix
+            between subsequences.
+        cut : int
+            Limit to the correlation matrix to plot.
+        binning : int
+            Binning used to cut a sequence.
         """
     
         for ind in range(0, len(corr_matrix)):

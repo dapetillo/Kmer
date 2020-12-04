@@ -19,65 +19,35 @@ import kmerutils
 
 class Kmer:
 
-    """This class implements an alignment-free algorithm to correlate genetic sequences.
-
-    The sequence A is cut into "words" of k nucleotides and for all the k reading frames;
-    a vector then is filled with the occurrences of each possible words (4**k). The same 
-    is made with the sequence B. Finally the two resulting vectors are correlated. If 
-    a set of N sequences is given, the class generates N vector that are correlated 
-    each other.
-
-    The class includes a method to find bias-corrected and accelerated 
-    confidence intervals for the correlation values.
-
-    """
-
     def __init__(self, seq_dict=None, seq_dir=None):
-        """It initializes the main attributes of the class.
+        """A class to extract kmer words from genetic sequences
+        for alignment-free algorithms.
+
+        Parameters
+        ----------
+        seq_dict : dict
+            Dictionary with sequences' info and the sequences
+            themselves.
+        seq_dir : str
+            Relative path to sequences' folder.
 
         Attributes
         ----------
-        seqs: 'list'
-            A list containing the raw genetic sequences. Letters must be
-            upper-case.
-        length_seqs: 'list'
-            A list containing the length of the genetic sequences in seqs.
-            The length is measured in base pairs [bp].
-        corr: 'str'
-            Correlation function to use among the possible ones:
-
-            - Pearson (P)
-            - Spearman (S)
-            - Kendall (T)
-            - All (ALL)     <---- it correlates the sequences using the 
-                                  three functions above. 
-
-            It can be decided a priori. If None, the script will ask for
-            one.
-            WARNING: the script will either calculate with one correlation
-            function or with all of them. The use of two correlations is 
-            not possible (e.g. Pearson+Kendall).
-        alphabet: 'str'
-            The genetic alphabet. Only "ATCG" possible: reduced alphabet not
-            supported.
-        files: 'list'
-            A list containing the sequences' names. If a sequence is
-            downloaded from a database, the name usually corresponds to the
-            file name.
-        k: 'int'
-            A parameter defining the length [bp] of an extracted "word".
-        all_w: 'list'
-            A list containing all the possible permutations given the 
-            alphabet and the words' lengths. In this case, 4**k.
-        corr_matrix: 'numpy 3-D array'
-            A 3-D array that contains the correlation values. It resembles
-            an array of matrices: each matrix refers to a correlation
-            function.
-        ordered_kmers: '2D list'
-            A list containing a number of lists equal to the sequences' number.
-            Each list contains the occurrences of all the possible words for a
-            sequence. The occurrences of each list are sorted by all_w.
-
+        ids : list
+            Contains IDs of the genetic sequences.
+        sequences: list of Seq objects
+            Each element is a Seq object representing a genetic
+            sequence.
+        length_seqs : list
+            Lengths of the genetic sequences measured in
+            base pairs [bp].
+        alphabet : str
+            Genetic alphabet. Only "ATCG" supported.
+        ordered_kmers : list of dicts 
+            Each dictionary in the list is structured as:
+            `key`: kmer word
+            `value`: # of occurrences for `key`
+            Also, each dictionary corresponds to a unique sequence.
         """
 
         if seq_dir:
@@ -90,13 +60,12 @@ class Kmer:
 
         
         self.alphabet = "ATCG"
-        self.k = 0
         self.ordered_kmers = None
     
 
 
     def optimal_k(self, max_k=None):
-        """ Given a range of k values, the variety of the extracted
+        """Given a range of k values, the variety of the extracted
         words in a sequence changes. The method returns the (optimal)
         k(s) for which the variety (or richness) is maximum.
         The methodology is taken from:
@@ -133,40 +102,40 @@ class Kmer:
         return opt_k
 
     def words_overlay(self, k=None):
-        """The method extracts the words from each sequence given
-        the parameter k. If k is None, the function will print
-        the average k for the sequences based on the relation:
+        """It extracts words from genetic sequences given the parameter `k`.
+        If `k` is None, it is computed for each sequence using:
 
-        k = log_4(sequence length),
+        k = log_4(sequence length)
 
-        which theoretically finds the best k in the same
-        fashion as in optimal_k (check the paper cited in the 
-        latter for more informations). Then the user can choose
-        the k to use.
+        Finally `k` is averaged.
 
+        Parameters
+        ----------
+        k : int
+        A parameter used to define the length of a kmer word.
         """
-        if k is not None:
-            self.k = k
-        else:
+
+        if k is None:
             logs = 0
             average_k = 0
             for n in self.length_seqs:
                 logs += mt.log(n, 4)
             average_k = logs / len(self.length_seqs)
             print("Average k: %.2f" % average_k)
-            self.k = int(average_k)
+            k = int(average_k)
+        else:
+            k = int(k)
 
-
-        kmers_words = kmerutils.generate_words(self.k, self.alphabet)
+        kmers_words = kmerutils.generate_words(k, self.alphabet)
 
         print("Extracting words... ")
         self.ordered_kmers = [{} for x in range(len(self.sequences))]
         for index, sequence in enumerate(self.sequences):
             pos = 0
-            end_pos = len(sequence) - self.k + 1
+            end_pos = len(sequence) - k + 1
             kmers = []
             for pos in range(0, end_pos):
-                sub = sequence[pos:self.k+pos]
+                sub = sequence[pos:k+pos]
                 if not all(w in self.alphabet for w in sub):
                     continue
                 else:
@@ -182,22 +151,36 @@ class Kmer:
 class subKmer(Kmer):
 
     def __init__(self, seq_dict=None, seq_dir=None, binning=100):
+        """A class to cut two genetic sequences into subsequences
+        for further operations.
+
+        Parameters
+        ----------
+        seq_dict : dict
+            Dictionary with sequences' info and the sequences
+            themselves.
+        seq_dir : str
+            Relative path to sequences' folder.
+        binning : int
+            Defines the length of a subsequence in base pairs [bp].
+        
+        Attributes
+        ----------
+        binning : int
+            Defines the length of a subsequence in base pairs [bp].
+        """
         self.binning = binning
         super().__init__(seq_dict, seq_dir)
 
     
     def sKmer(self):
-        """This method cut sequences in subsequences: it is used when
-        the user wants to look for local changes in a sequence. The
-        method should be called before to perform any words extraction
-        as well as correlation calculation. The subsequences get stored
-        in the seqs attribute.
+        """It cuts the sequences into subsequences based on
+        `binning`.
 
-        Parameters
-        ----------
-        binning: 'int'
-        It defines the length of the subsequences.
-        
+        Returns
+        -------
+        cut : int
+            Integer necessary to plot the sKmer heatmap.
         """
 
         subseqs = []
