@@ -1,6 +1,7 @@
 from Bio import SeqIO
 import os
 import configparser
+import kmerutils as ku
 
 
 class Biodata:
@@ -42,7 +43,8 @@ class Biodata:
         if seq_dir is not None:
             self.full_fname = [os.path.abspath(os.path.join(seq_dir, x)) for x in os.listdir(seq_dir)]
         
-        self.biodata = {"IDs": [], "features": [], "sequences": []}
+        self.biodata = {"IDs": [], "alphabets": [],
+                        "features": [], "sequences": []}
     
 
     def parse_genbank(self, gb):
@@ -67,6 +69,7 @@ class Biodata:
         feat_parser = configparser.ConfigParser()
         feat_parser.read("features.ini")
         ids = []
+        alphabets = []
         feats = []
         seqs = []
 
@@ -78,10 +81,11 @@ class Biodata:
                     continue
 
                 ids.append(record.id)
+                alphabets.append(ku.detect_alphabet(sequence))
                 feats.append(feat.type)
                 seqs.append(sequence)
 
-        return (ids, feats, seqs)
+        return ids, alphabets, feats, seqs
 
     def parse_fasta(self, fa, acc_version="NC_"):
         """It parses GenBank files based on features.
@@ -102,7 +106,9 @@ class Biodata:
         seqs : list of Seq objects
             The sequences themselves.
         """
+
         ids = []
+        alphabets = []
         feats = []
         seqs = []
         for record in SeqIO.parse(fa, "fasta"):
@@ -113,9 +119,10 @@ class Biodata:
                     ids.append(acc_version_id[0])
             elif record.id.startswith("gi"):
                 ids.append(split_id[1])  # extract GI number
+            alphabets.append(ku.detect_alphabet(record.seq.upper()))
             feats.append("source")
         
-        return (ids, feats, seqs)
+        return ids, alphabets, feats, seqs
 
     def load_as_dict(self):
         """Calls parsing functions and collects output
@@ -134,13 +141,14 @@ class Biodata:
 
         for name in self.full_fname:
             if name.endswith((".gb", ".genbank")):
-                ids, feats, seqs = self.parse_genbank(name)
+                ids, alphabets, feats, seqs = self.parse_genbank(name)
             elif name.endswith((".fa", ".fasta")):
-                ids, feats, seqs = self.parse_fasta(name)
+                ids, alphabets, feats, seqs = self.parse_fasta(name)
             else:
                 raise ValueError("File format not supported.")
             
             self.biodata["IDs"] += ids
+            self.biodata["alphabets"] += alphabets
             self.biodata["features"] += feats
             self.biodata["sequences"] += seqs
         

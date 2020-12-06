@@ -45,3 +45,8 @@ def unpack_kmers(kmers):
         kmers = [list(d_kmers.values()) for d_kmers in kmers]
 
     return kmers
+
+def detect_alphabet(sequence):
+    alphabet = ''.join(set(sequence))
+
+    return alphabet

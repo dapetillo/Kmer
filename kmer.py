@@ -3,18 +3,13 @@ import math as mt
 import os
 import itertools
 import collections
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 import numpy as np
-import scipy.stats
-import seaborn as sns
 from Bio import SeqIO
 import sys
-import configparser
 from data import Biodata
 from analysis import Analysis
 from visu import Visualization
-import kmerutils
+import kmerutils as ku
 
 
 class Kmer:
@@ -55,12 +50,11 @@ class Kmer:
             seq_dict = seq_dict.load_as_dict()
 
         self.ids = seq_dict["IDs"]
+        self.alphabets = seq_dict["alphabets"]
         self.sequences = seq_dict["sequences"]
         self.length_seqs = [len(x) for x in self.sequences]
 
-        
-        self.alphabet = "ATCG"
-        self.ordered_kmers = None
+        self.ordered_counted_kmers = None
     
 
 
@@ -123,27 +117,17 @@ class Kmer:
         else:
             k = int(k)
 
-        kmers_words = kmerutils.generate_words(k, self.alphabet)
-
         print("Extracting words... ")
-        self.ordered_kmers = [{} for x in range(len(self.sequences))]
+        self.ordered_counted_kmers = [{} for x in range(len(self.sequences))]
         for index, sequence in enumerate(self.sequences):
             end_pos = len(sequence) - k + 1
-            kmers = []
-            #kmers = [sequence[pos:k+pos] for pos in range(end_pos)]
-            for pos in range(0, end_pos):
-                sub = sequence[pos:k+pos]
-                if not all(w in self.alphabet for w in sub):
-                    continue
-                else:
-                    kmers.append(str(sub))
-            unordered_dic_kmers = collections.Counter(kmers)
+            kmers = [str(sequence[pos:k+pos]) for pos in range(end_pos)]
+            unordered_counted_kmers = collections.Counter(kmers)
+            kmers_words = ku.generate_words(k, self.alphabets[index])
             for word in kmers_words:
-                self.ordered_kmers[index][word] = unordered_dic_kmers[word]
-
+                self.ordered_counted_kmers[index][word] = unordered_counted_kmers[word]
 
         print("Words analysis completed.\n")
-
 
 
 class subKmer(Kmer):
@@ -200,8 +184,8 @@ if __name__ == "__main__":
 
     quest = Kmer(seq_dir="test_seqs")
     quest.words_overlay()
-    ans = Analysis(quest.ordered_kmers)
+    ans = Analysis(quest.ordered_counted_kmers)
     corr_matrix = ans.correlation_matrix(len(quest.sequences), correlation=["P"])
     vis = Visualization(k=quest.k)
     vis.heatmap(corr_matrix, quest.ids)
-    vis.histogram(quest.ordered_kmers)
+    vis.histogram(quest.ordered_counted_kmers)
