@@ -116,11 +116,8 @@ class Kmer:
         """
 
         if k is None:
-            logs = 0
-            average_k = 0
-            for n in self.length_seqs:
-                logs += mt.log(n, 4)
-            average_k = logs / len(self.length_seqs)
+            logs = np.log(self.length_seqs) / np.log(4)
+            average_k = np.mean(logs)
             print("Average k: %.2f" % average_k)
             k = int(average_k)
         else:
@@ -131,9 +128,9 @@ class Kmer:
         print("Extracting words... ")
         self.ordered_kmers = [{} for x in range(len(self.sequences))]
         for index, sequence in enumerate(self.sequences):
-            pos = 0
             end_pos = len(sequence) - k + 1
             kmers = []
+            #kmers = [sequence[pos:k+pos] for pos in range(end_pos)]
             for pos in range(0, end_pos):
                 sub = sequence[pos:k+pos]
                 if not all(w in self.alphabet for w in sub):
@@ -146,6 +143,7 @@ class Kmer:
 
 
         print("Words analysis completed.\n")
+
 
 
 class subKmer(Kmer):
@@ -169,6 +167,7 @@ class subKmer(Kmer):
         binning : int
             Defines the length of a subsequence in base pairs [bp].
         """
+
         self.binning = binning
         super().__init__(seq_dict, seq_dir)
 
@@ -191,7 +190,7 @@ class subKmer(Kmer):
                 sub = ss[i*self.binning:(i+1)*self.binning]
                 subseqs.append(sub)
                 i += 1
-        
+
         self.sequences = subseqs
         return cut
 
