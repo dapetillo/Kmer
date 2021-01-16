@@ -10,7 +10,13 @@ from data import Biodata
 from analysis import Analysis
 from visu import Visualization
 import kmerutils as ku
+from scipy import special
 
+import time
+import matplotlib.pyplot as plt
+
+import fasta
+import ffp
 
 class Kmer:
 
@@ -45,57 +51,65 @@ class Kmer:
             Also, each dictionary corresponds to a unique sequence.
         """
 
+        start = time.time()
         if seq_dir:
             seq_dict = Biodata(seq_dir)
             seq_dict = seq_dict.load_as_dict()
-
+        print("Time to load fasta genome is %s seconds" % (time.time() - start))
         self.ids = seq_dict["IDs"]
         self.alphabets = seq_dict["alphabets"]
         self.sequences = seq_dict["sequences"]
         self.length_seqs = [len(x) for x in self.sequences]
 
+        ###to cancel after test
+        
         self.ordered_counted_kmers = None
     
 
-
-    def optimal_k(self, max_k=None):
-        """Given a range of k values, the variety of the extracted
-        words in a sequence changes. The method returns the (optimal)
-        k(s) for which the variety (or richness) is maximum.
-        The methodology is taken from:
-
-        'Alignment-free genome comparison with feature frequency 
-        profiles (FFP) and optimal resolutions', (Gregory E. Sims,
-        Se-Ran Jun, Guohong A. Wu and Sung-Hou Kima).
+    def lower_k_res(self, mean=True):
+        low_k = np.log(self.length_seqs) / np.log(4)
+        if mean is True and low_k.shape[0] > 1:
+            low_k = int(np.mean(low_k))
         
-        """
-        min_k = 1
-        if max_k is None:
-            max_k = 8
-
-        richness = np.zeros((len(self.sequences), max_k - 1))
-        opt_k = {}
-        k = 0
-        for ind, seq in enumerate(self.sequences):
-            for k in range(min_k, max_k):
-                pos = 0
-                end_pos = len(seq) - k + 1
-                kmers = []
-                for pos in range(0, end_pos):
-                    sub = seq[pos:k+pos]
-                    if not all(w in self.alphabet for w in sub):
-                        continue
+        return low_k
+    
+    def upper_k_res(self):
+        k = 3
+        #keys = ku.generate_words(k, "ATCG")
+        #exp_freq = {word: None for word in keys}
+        CRE = 1
+        for index in range(len(self.sequences)):
+            while CRE > 0.1:
+                exp_l_kmer = {}
+                keys = ku.generate_words(k, self.alphabets[index])
+                start = time.time()
+                l_kmer = self.FFP(k, norm=True)
+                print("Time to FFP for k={} is {}".format(k, time.time() - start))
+                l1_kmer = self.FFP(k - 1, norm=True)
+                print("Time to FFP for k={} is {}".format(k - 1, time.time() - start))
+                l2_kmer = self.FFP(k - 2, norm=True)
+                print("Time to FFP for k={} is {}".format(k - 2, time.time() - start))
+                sys.exit()
+                for word in keys:
+                    exp_freq = l1_kmer[index][word[1:]] * l1_kmer[index][word[:-1]] / l2_kmer[index][word[1:-1]]
+                    if not np.isfinite(exp_freq) or np.isnan(exp_freq) or exp_freq == 0:
+                        del l_kmer[index][word]
                     else:
-                        kmers.append(str(sub))
-                counting = collections.Counter(kmers)
-                for values in counting.values():
-                    if values >= 2:
-                        richness[ind][k-1] += 1
-            opt_k["{}".format(self.ids[ind])] = np.argmax(richness[ind]) + 1
+                        exp_l_kmer[word] = l1_kmer[index][word[1:]] * l1_kmer[index][word[:-1]] / l2_kmer[index][word[1:-1]]
+                a = np.array(list(exp_l_kmer.values()))
+                b = np.array(list(l_kmer[index].values()))
+                if k == 4:
+                    pass
+                    #print("Siamo a k 4",special.kl_div(a, b))
+                    #print(list(l_kmer[index].keys()))
+                kl_div = np.sum(special.kl_div(b, a))
+                print(kl_div, "al giro", k)
+                CRE += kl_div
+                k += 1
         
-        return opt_k
 
-    def words_overlay(self, k=None):
+
+    def FFP(self, k=None, norm=False):
         """It extracts words from genetic sequences given the parameter `k`.
         If `k` is None, it is computed for each sequence using:
 
@@ -110,14 +124,12 @@ class Kmer:
         """
 
         if k is None:
-            logs = np.log(self.length_seqs) / np.log(4)
-            average_k = np.mean(logs)
-            print("Average k: %.2f" % average_k)
-            k = int(average_k)
+            k = self.lower_k_res()
+            print("k is: ", k)
         else:
             k = int(k)
 
-        print("Extracting words... ")
+        #print("Extracting words... ")
         self.ordered_counted_kmers = [{} for x in range(len(self.sequences))]
         for index, sequence in enumerate(self.sequences):
             end_pos = len(sequence) - k + 1
@@ -126,7 +138,12 @@ class Kmer:
             kmers_words = ku.generate_words(k, self.alphabets[index])
             for word in kmers_words:
                 self.ordered_counted_kmers[index][word] = unordered_counted_kmers[word]
-
+            if norm is True:
+                norm_factor = 1.0 / sum(self.ordered_counted_kmers[index].values())
+                for key in self.ordered_counted_kmers[index].keys():
+                    self.ordered_counted_kmers[index][key] = self.ordered_counted_kmers[index][key] * norm_factor
+        
+        return self.ordered_counted_kmers
         print("Words analysis completed.\n")
 
 
@@ -181,9 +198,23 @@ class subKmer(Kmer):
 
 
 if __name__ == "__main__":
-
-    quest = Kmer(seq_dir="test_seqs")
-    quest.words_overlay()
+    quest = Kmer(seq_dir="test_genome")
+    seconds = []
+    for k in range(1, 10):
+        print("Starting k=%s..." % k)
+        start = time.time()
+        #quest.FFP(k)
+        ffp.ffp(str(quest.sequences[0]), k)
+        seconds.append(time.time() - start)
+    print(seconds)
+    plt.scatter(np.arange(1, 10), seconds)
+    plt.title("FFP time profiling - NC_049958.1")
+    plt.xlabel("Word length [bp]")
+    plt.ylabel("Execution time [s]")
+    plt.savefig("FFP_time_C.png", bbox_inches="tight")
+    sys.exit()
+    quest.upper_k_res()
+    quest.FFP()
     ans = Analysis(quest.ordered_counted_kmers)
     corr_matrix = ans.correlation_matrix(len(quest.sequences), correlation=["P"])
     vis = Visualization(k=quest.k)
