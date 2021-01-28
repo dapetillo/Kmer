@@ -18,6 +18,10 @@ ffp *kmers(char *seq, int k, ffp *hash_table[], int table_size)
         int j = 0;
         while (j < k)
         {
+            if (seq[i + j] == 'N')
+            {
+                break;
+            }
             subword[j] = seq[i + j];
             j++;
         }
