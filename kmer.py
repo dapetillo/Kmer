@@ -73,39 +73,44 @@ class Kmer:
         
         return low_k
     
-    def upper_k_res(self):
-        k = 3
-        #keys = ku.generate_words(k, "ATCG")
-        #exp_freq = {word: None for word in keys}
-        CRE = 1
+    def upper_k_res(self, k_init=3, k_max=6, mean=True):
+        k_upper = np.array([])
         for index in range(len(self.sequences)):
-            while CRE > 0.1:
+            k = k_init
+            kl_div = []
+            CRE = []
+            init_l_kmer = True
+            l_kmer_chain = []
+            while k <= k_max:
                 exp_l_kmer = {}
-                keys = ku.generate_words(k, self.alphabets[index])
-                start = time.time()
-                l_kmer = self.FFP(k, norm=True)
-                print("Time to FFP for k={} is {}".format(k, time.time() - start))
-                l1_kmer = self.FFP(k - 1, norm=True)
-                print("Time to FFP for k={} is {}".format(k - 1, time.time() - start))
-                l2_kmer = self.FFP(k - 2, norm=True)
-                print("Time to FFP for k={} is {}".format(k - 2, time.time() - start))
-                sys.exit()
-                for word in keys:
-                    exp_freq = l1_kmer[index][word[1:]] * l1_kmer[index][word[:-1]] / l2_kmer[index][word[1:-1]]
-                    if not np.isfinite(exp_freq) or np.isnan(exp_freq) or exp_freq == 0:
-                        del l_kmer[index][word]
+                if init_l_kmer:
+                    l_kmer_chain.append(ffp.ffp(str(self.sequences[index]), k))
+                    l_kmer_chain.append(ffp.ffp(str(self.sequences[index]), k - 1))
+                    l_kmer_chain.append(ffp.ffp(str(self.sequences[index]), k - 2))
+                else:
+                    l_kmer_chain.insert(0, ffp.ffp(str(self.sequences[index]), k))
+                    l_kmer_chain.pop(-1)
+                N = sum(l_kmer_chain[2].values()) / sum(l_kmer_chain[1].values()) / sum(l_kmer_chain[1].values())
+                for word in l_kmer_chain[0].keys():
+                    exp_freq = l_kmer_chain[1][word[1:]] * l_kmer_chain[1][word[:-1]] / l_kmer_chain[2][word[1:-1]] * N
+                    if not np.isfinite(exp_freq) or exp_freq == 0:
+                        del l_kmer_chain[0][word]
                     else:
-                        exp_l_kmer[word] = l1_kmer[index][word[1:]] * l1_kmer[index][word[:-1]] / l2_kmer[index][word[1:-1]]
-                a = np.array(list(exp_l_kmer.values()))
-                b = np.array(list(l_kmer[index].values()))
-                if k == 4:
-                    pass
-                    #print("Siamo a k 4",special.kl_div(a, b))
-                    #print(list(l_kmer[index].keys()))
-                kl_div = np.sum(special.kl_div(b, a))
-                print(kl_div, "al giro", k)
-                CRE += kl_div
+                        exp_l_kmer[word] = exp_freq
+                exp_list = np.array(list(exp_l_kmer.values()))
+                l_kmer_list = np.array(list(l_kmer_chain[0].values())) / sum(l_kmer_chain[0].values())
+                kl_div.append(np.sum(l_kmer_list * np.log2(l_kmer_list / exp_list)))
                 k += 1
+                init_l_kmer = False
+            for i in range(len(kl_div)):
+                CRE.append(np.sum(kl_div[i:]))
+            np.append(k_upper, CRE.index(min(CRE)) + k_init)
+        
+        if mean is True and k_upper.shape[0] > 1:
+            k_upper = int(np.mean(k_upper))
+
+        return k_upper
+
         
 
 
@@ -199,21 +204,8 @@ class subKmer(Kmer):
 
 if __name__ == "__main__":
     quest = Kmer(seq_dir="test_genome")
-    seconds = []
-    for k in range(1, 10):
-        print("Starting k=%s..." % k)
-        start = time.time()
-        #quest.FFP(k)
-        ffp.ffp(str(quest.sequences[0]), k)
-        seconds.append(time.time() - start)
-    print(seconds)
-    plt.scatter(np.arange(1, 10), seconds)
-    plt.title("FFP time profiling - NC_049958.1")
-    plt.xlabel("Word length [bp]")
-    plt.ylabel("Execution time [s]")
-    plt.savefig("FFP_time_C.png", bbox_inches="tight")
-    sys.exit()
     quest.upper_k_res()
+    sys.exit()
     quest.FFP()
     ans = Analysis(quest.ordered_counted_kmers)
     corr_matrix = ans.correlation_matrix(len(quest.sequences), correlation=["P"])
